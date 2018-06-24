@@ -1,0 +1,44 @@
+{
+    "version": "0.1.0",
+    "name": "iobroker.homee",
+    "author": {
+        "name": "Apollon77",
+        "email": "ingo@fischer-ka.de"
+    },
+    "bugs": {
+        "url": "https://github.com/Apollon77/ioBroker.homee/issues"
+    },
+    "contributors": [
+        {
+            "name": "Apollon77",
+            "email": "ingo@fischer-ka.de"
+        }
+    ],
+    "dependencies": {
+        "homee-api": "stfnhmplr/homee-api"
+    },
+    "description": "Homee adapter for ioBroker",
+    "devDependencies": {
+        "chai": "^4.1.2",
+        "gulp": "^3.9.1",
+        "mocha": "^5.2.0"
+    },
+    "optionalDependencies": {},
+    "homepage": "https://github.com/Apollon77/ioBroker.homee",
+    "keywords": [
+        "ioBroker",
+        "Homee",
+        "Smart Home",
+        "home automation"
+    ],
+    "license": "MIT",
+    "main": "main.js",
+    "readmeFilename": "README.md",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Apollon77/ioBroker.homee.git"
+    },
+    "scripts": {
+        "test": "node node_modules/mocha/bin/mocha --exit"
+    }
+}

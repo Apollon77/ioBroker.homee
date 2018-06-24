@@ -1,0 +1,80 @@
+{
+    "common": {
+        "name": "homee",
+        "version": "0.1.1",
+        "news": {
+            "0.1.0": {
+                "en": "initial adapter",
+                "de": "Initiale Version",
+                "ru": "Первоначальный адаптер",
+                "pt": "Versão inicial",
+                "fr": "Version initiale",
+                "nl": "Eerste release"
+            }
+        },
+        "title": "Homee",
+        "titleLang": {
+            "en": "Homee",
+            "de": "Homee",
+            "ru": "Homee",
+            "pt": "Homee",
+            "nl": "Homee",
+            "fr": "Homee",
+            "it": "Homee",
+            "es": "Homee"
+        },
+        "desc": {
+            "en": "support Homee devices",
+            "de": "Unterstützung von Homee-Geräten",
+            "ru": "поддержка устройств Homee",
+            "pt": "suporte a dispositivos Homee",
+            "nl": "ondersteuning van Homee-apparaten",
+            "fr": "soutenir les appareils Homee",
+            "it": "supporta i dispositivi Homee",
+            "es": "soportar dispositivos Homee",
+            "pl": "obsługuje urządzenia Homee"
+        },
+        "authors": [
+            "Apollon77 <ingo@fischer-ka.de"
+        ],
+        "platform": "Javascript/Node.js",
+        "mode": "daemon",
+        "icon": "homee.png",
+        "materialize": true,
+        "enabled": false,
+        "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.homee/master/admin/homee.png",
+        "keywords": ["homee"],
+        "readme": "https://github.com/ioBroker/ioBroker.homee/blob/master/README.md",
+        "loglevel": "info",
+        "type": "iot-systems"
+    },
+    "native": {
+        "homeeIp": "127.0.0.1",
+    },
+    "objects": [
+
+    ],
+    "instanceObjects": [
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "role": "indicator.connected",
+                "name": "If connected to Homee",
+                "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        }
+    ]
+}

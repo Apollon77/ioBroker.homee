@@ -42,9 +42,9 @@
         "icon": "homee.png",
         "materialize": true,
         "enabled": false,
-        "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.homee/master/admin/homee.png",
+        "extIcon": "https://raw.githubusercontent.com/Apollon77/ioBroker.homee/master/admin/homee.png",
         "keywords": ["homee"],
-        "readme": "https://github.com/ioBroker/ioBroker.homee/blob/master/README.md",
+        "readme": "https://github.com/Apollon77/ioBroker.homee/blob/master/README.md",
         "loglevel": "info",
         "type": "iot-systems"
     },

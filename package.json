@@ -17,7 +17,7 @@
     "dependencies": {
         "homee-api": "stfnhmplr/homee-api"
     },
-    "description": "Homee adapter for ioBroker",
+    "description": "homee adapter for ioBroker",
     "devDependencies": {
         "chai": "^4.1.2",
         "gulp": "^3.9.1",

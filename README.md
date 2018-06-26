@@ -3,7 +3,7 @@
 =================
 
 ## Description
-This adapter connects ioBroker to Homee
+This adapter connects ioBroker to homee
 
 ## TODO
 * Tests

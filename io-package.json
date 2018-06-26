@@ -12,27 +12,27 @@
                 "nl": "Eerste release"
             }
         },
-        "title": "Homee",
+        "title": "homee",
         "titleLang": {
-            "en": "Homee",
-            "de": "Homee",
-            "ru": "Homee",
-            "pt": "Homee",
-            "nl": "Homee",
-            "fr": "Homee",
-            "it": "Homee",
-            "es": "Homee"
+            "en": "homee",
+            "de": "homee",
+            "ru": "homee",
+            "pt": "homee",
+            "nl": "homee",
+            "fr": "homee",
+            "it": "homee",
+            "es": "homee"
         },
         "desc": {
-            "en": "support Homee devices",
-            "de": "Unterstützung von Homee-Geräten",
-            "ru": "поддержка устройств Homee",
-            "pt": "suporte a dispositivos Homee",
-            "nl": "ondersteuning van Homee-apparaten",
-            "fr": "soutenir les appareils Homee",
-            "it": "supporta i dispositivi Homee",
-            "es": "soportar dispositivos Homee",
-            "pl": "obsługuje urządzenia Homee"
+            "en": "support homee devices",
+            "de": "Unterstützung von homee-Geräten",
+            "ru": "поддержка устройств homee",
+            "pt": "suporte a dispositivos homee",
+            "nl": "ondersteuning van homee-apparaten",
+            "fr": "soutenir les appareils homee",
+            "it": "supporta i dispositivi homee",
+            "es": "soportar dispositivos homee",
+            "pl": "obsługuje urządzenia homee"
         },
         "authors": [
             "Apollon77 <ingo@fischer-ka.de"
@@ -68,7 +68,7 @@
             "type": "state",
             "common": {
                 "role": "indicator.connected",
-                "name": "If connected to Homee",
+                "name": "If connected to homee",
                 "type": "boolean",
                 "read": true,
                 "write": false,

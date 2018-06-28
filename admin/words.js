@@ -3,15 +3,37 @@
 'use strict';
 
 systemDictionary = {
-    "IP for Homee": {
-        "en": "IP for Homee",
-        "de": "IP für Zuhause",
-        "ru": "IP для дома",
-        "pt": "IP para casa",
-        "nl": "IP voor thuis",
-        "fr": "IP pour la maison",
-        "it": "IP per casa",
-        "es": "IP para el hogar",
-        "pl": "IP dla domu"
+    "Host": {
+        "en": "Hostname/IP",
+        "de": "Hostname / IP",
+        "ru": "Hostname / IP",
+        "pt": "Nome do host / IP",
+        "nl": "Hostname / IP",
+        "fr": "Nom d'hôte / IP",
+        "it": "Hostname / IP",
+        "es": "Nombre de host / IP",
+        "pl": "Nazwa hosta / adres IP"
+    },
+    "User": {
+        "en": "Username",
+        "de": "Nutzername",
+        "ru": "имя пользователя",
+        "pt": "Nome de usuário",
+        "nl": "Gebruikersnaam",
+        "fr": "Nom d'utilisateur",
+        "it": "Nome utente",
+        "es": "Nombre de usuario",
+        "pl": "Nazwa Użytkownika"
+    },
+    "Password": {
+        "en": "Password",
+        "de": "Passwort",
+        "ru": "пароль",
+        "pt": "Senha",
+        "nl": "Wachtwoord",
+        "fr": "Mot de passe",
+        "it": "Parola d'ordine",
+        "es": "Contraseña",
+        "pl": "Hasło"
     }
 };

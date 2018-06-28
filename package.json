@@ -15,7 +15,7 @@
         }
     ],
     "dependencies": {
-        "homee-api": "stfnhmplr/homee-api"
+        "homee-api": "^0.9.1"
     },
     "description": "homee adapter for ioBroker",
     "devDependencies": {

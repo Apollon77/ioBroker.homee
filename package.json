@@ -15,7 +15,7 @@
         }
     ],
     "dependencies": {
-        "homee-api": "^0.9.1"
+        "homee-api": "^0.9.2"
     },
     "description": "homee adapter for ioBroker",
     "devDependencies": {

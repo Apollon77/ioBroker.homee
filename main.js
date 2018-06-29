@@ -12,26 +12,44 @@ const adapter = new utils.Adapter('homee');
 const Homee = require('homee-api');
 let homee;
 
+let stopIt = false;
+
 // is called when adapter shuts down - callback has to be called under any circumstances!
 adapter.on('unload', callback => {
     try {
         adapter.log.info('cleaned everything up...');
-        // TODO!
+        if (!stopIt) {
+            stopIt = true;
+            homee.disconnect();
+        }
         callback();
     } catch (e) {
         callback();
     }
 });
 
-//process.on('SIGINT', () => homebridgeHandler.end());
+process.on('SIGINT', () => {
+    if (!stopIt) {
+        stopIt = true;
+        homee.disconnect();
+    }
+});
 
-//process.on('SIGTERM', () => homebridgeHandler.end());
+process.on('SIGTERM', () => {
+    if (!stopIt) {
+        stopIt = true;
+        homee.disconnect();
+    }
+});
 
 process.on('uncaughtException', err => {
     if (adapter && adapter.log) {
         adapter.log.warn('Exception: ' + err);
     }
-    //TODO
+    if (!stopIt) {
+        stopIt = true;
+        homee.disconnect();
+    }
 });
 
 // is called if a subscribed state changes
@@ -45,6 +63,7 @@ adapter.on('stateChange', (id, state) => {
     if (state && !state.ack) {
         adapter.log.debug('ack is not set!');
         //TODO
+        homee.setValue(device_id, attribute_id, value);
     }
 });
 

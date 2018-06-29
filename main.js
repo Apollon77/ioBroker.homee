@@ -193,6 +193,7 @@ function main() {
             reconnectInterval: 5000,
             maxRetries: Infinity
         };
+        adapter.log.info('Init Homee ' + adapter.config.host + ': ' + adapter.config.user);
         homee = new Homee(adapter.config.host, adapter.config.user, adapter.config.password, options);
 
         homee.connect().then(() => {
@@ -225,6 +226,7 @@ function main() {
                 adapter.log.debug('NODE: ' + JSON.stringify(node));
             });
             // ...tbc
+
 
             adapter.subscribeStates('*');
 

@@ -143,7 +143,7 @@ describe('Test ' + adapterShortName + ' adapter', () => {
             const config = setup.getAdapterConfig();
             // enable adapter
             config.common.enabled  = true;
-            config.common.loglevel = 'debug';
+            config.common.loglevel = 'silly';
 
             config.native.host = '127.0.0.1';
             config.native.user = 'testuser';

@@ -289,6 +289,17 @@ describe('Test ' + adapterShortName + ' adapter', () => {
         });
     }).timeout(10000);
 
+    it('Test ' + adapterShortName + ': Test homeegram trigger via iobroker', done => {
+        states.setState(adapterShortName + '.0.Homee-0.Homeegrams.1', {val: true, ack: false}, err => {
+            expect(err).to.not.exist;
+
+            setTimeout(function() {
+                expect(lastWSRequest).to.be.equal('PUT:homeegrams/1?play=1');
+                done();
+            }, 1000);
+        });
+    }).timeout(10000);
+
     after('Test ' + adapterShortName + ' adapter: Stop js-controller', function (done) {
         this.timeout(10000);
 

@@ -93,16 +93,17 @@ adapter.on('stateChange', (id, state) => {
 
 function updateDev(node) {
     const nodeId = mapper.getNodeName(node);
-    adapter.log.debug('updateDev ' + node.id + ': name = ' + node.name + ' /profile= ' + node.profile + ' as ' + nodeId);
+    const node_name = decodeURIComponent(node.name);
+    adapter.log.debug('updateDev ' + node.id + ': name = ' + node_name + ' /profile= ' + node.profile + ' as ' + nodeId);
     // create dev
     adapter.getObject(nodeId, (err, obj) => {
         if (!err && obj) {
             adapter.extendObject(nodeId, {
                 type: 'device',
-                common: {name: node.name},
+                common: {name: node_name},
                 native: {
                     id: node.id,
-                    name: node.name,
+                    name: node_name,
                     profile: node.profile
                 }
             });
@@ -110,10 +111,10 @@ function updateDev(node) {
         else {
             adapter.setObject(nodeId, {
                 type: 'device',
-                common: {name: node.name},
+                common: {name: node_name},
                 native: {
                     id: node.id,
-                    name: node.name,
+                    name: node_name,
                     profile: node.profile
                 }
             }, {});
@@ -455,6 +456,10 @@ function getHistory(msg) {
 }
 
 function main() {
+    if (adapter.config.host === "") {
+        adapter.log.error('You need to configure the adapter properly.');
+        return;
+    }
 
     //loadExistingAccessories(() => {
         const options = {

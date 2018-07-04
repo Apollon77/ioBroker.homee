@@ -1,9 +1,9 @@
 {
     "common": {
         "name": "homee",
-        "version": "0.1.0",
+        "version": "0.1.1",
         "news": {
-            "0.1.0": {
+            "0.1.1": {
                 "en": "initial adapter",
                 "de": "Initiale Version",
                 "ru": "Первоначальный адаптер",
@@ -54,7 +54,7 @@
         "type": "iot-systems"
     },
     "native": {
-        "host": "127.0.0.1",
+        "host": "",
         "user": "",
         "password": ""
     },

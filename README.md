@@ -22,7 +22,7 @@ This adapter is based on the outstanding work of [stfnhmplr](http://twitter.com/
 
 ## Changelog
 
-### 0.1.0 (2018.07.04)
+### 0.1.1 (2018.07.04)
 * (Apollon77) initial version
 
 ## License

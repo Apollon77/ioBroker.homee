@@ -25,9 +25,9 @@ let wsServer;
 let wsConnection;
 let lastWSRequest = null;
 
-function decrypt(key, value) {
-    let result = '';
-    for (let i = 0; i < value.length; ++i) {
+function encrypt(key, value) {
+    var result = '';
+    for(var i = 0; i < value.length; ++i) {
         result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
     }
     return result;
@@ -146,7 +146,7 @@ describe('Test ' + adapterShortName + ' adapter', () => {
 
             config.native.host = '127.0.0.1';
             config.native.user = 'testuser';
-            config.native.password = decrypt(systemConfig.native.secret, 'testpassword');
+            config.native.password = encrypt(systemConfig.native.secret, 'testpassword');
 
             setup.setAdapterConfig(config.common, config.native);
 
@@ -190,16 +190,21 @@ describe('Test ' + adapterShortName + ' adapter', () => {
     it('Test ' + adapterShortName + ' Wrapper: Verify Init', done => {
         states.getState(adapterShortName + '.0.OpenCloseWithTemperatureAndBrightnessSensor-15.FirmwareRevision-63', (err, state) => {
             expect(err).to.not.exist;
-            expect(state.val).to.be.equal(3.95);
+            expect(state.val).to.be.equal('3.95');
 
-            done();
+            states.getState(adapterShortName + '.0.OpenCloseWithTemperatureAndBrightnessSensor-15.WakeUpInterval-66', (err, state) => {
+                expect(err).to.not.exist;
+                expect(state.val).to.be.equal(1440);
+
+                done();
+            });
         });
     });
 
     it('Test ' + adapterShortName + ': Test Change from homee non-ack', done => {
         const data = {
             "attribute": {
-                "id": 63,
+                "id": 66,
                 "state": 1,
                 "node_id": 15,
                 "instance": 1,
@@ -221,9 +226,9 @@ describe('Test ' + adapterShortName + ' adapter', () => {
             }
         };
         wsConnection.send(JSON.stringify(data));
-        states.getState(adapterShortName + '.0.OpenCloseWithTemperatureAndBrightnessSensor-15.FirmwareRevision-63', (err, state) => {
+        states.getState(adapterShortName + '.0.OpenCloseWithTemperatureAndBrightnessSensor-15.WakeUpInterval-66', (err, state) => {
             expect(err).to.not.exist;
-            expect(state.val).to.be.equal(3.95);
+            expect(state.val).to.be.equal(1440);
 
             done();
         });
@@ -255,7 +260,7 @@ describe('Test ' + adapterShortName + ' adapter', () => {
             }
         };
         wsConnection.send(JSON.stringify(data));
-        states.getState(adapterShortName + '.0.OpenCloseWithTemperatureAndBrightnessSensor-15.FirmwareRevision-63', (err, state) => {
+        states.getState(adapterShortName + '.0.OpenCloseWithTemperatureAndBrightnessSensor-15.WakeUpInterval-66', (err, state) => {
             expect(err).to.not.exist;
             expect(state.val).to.be.equal(50.5);
 
@@ -265,7 +270,7 @@ describe('Test ' + adapterShortName + ' adapter', () => {
     }).timeout(10000);
 
     it('Test ' + adapterShortName + ': Test change via iobroker', done => {
-        states.setState(adapterShortName + '.0.OpenCloseWithTemperatureAndBrightnessSensor-15.FirmwareRevision-63', {val: 77.7, ack: false}, err => {
+        states.setState(adapterShortName + '.0.OpenCloseWithTemperatureAndBrightnessSensor-15.WakeUpInterval-66', {val: 77.7, ack: false}, err => {
             expect(err).to.not.exist;
 
             setTimeout(function() {

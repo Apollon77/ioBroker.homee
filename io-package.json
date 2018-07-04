@@ -1,15 +1,18 @@
 {
     "common": {
         "name": "homee",
-        "version": "0.1.1",
+        "version": "0.2.0",
         "news": {
-            "0.1.1": {
-                "en": "initial adapter",
-                "de": "Initiale Version",
-                "ru": "Первоначальный адаптер",
-                "pt": "Versão inicial",
-                "fr": "Version initiale",
-                "nl": "Eerste release"
+            "0.2.0": {
+                "en": "Fix History logic and add Homeegram support",
+                "de": "Repariere die History-Logik und füge Homeegram-Unterstützung hinzu",
+                "ru": "Исправить логику истории и добавить поддержку Homeegram",
+                "pt": "Corrigir a lógica do histórico e adicionar suporte ao Homeegram",
+                "nl": "Herstel de logica van de geschiedenis en voeg Homeegram-ondersteuning toe",
+                "fr": "Correction de la logique de l'historique et ajout du support de Homeegram",
+                "it": "Correggi la logica della cronologia e aggiungi il supporto di Homeegram",
+                "es": "Arregle la lógica del historial y agregue el soporte de Homeegram",
+                "pl": "Napraw logikę historii i dodaj obsługę Homeegram"
             }
         },
         "title": "homee",

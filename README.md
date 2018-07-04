@@ -12,15 +12,16 @@ This adapter connects ioBroker to homee and provides the following features:
 This adapter is based on the outstanding work of [stfnhmplr](http://twitter.com/stfnhmplr) and his [homee-api](https://github.com/stfnhmplr/homee-api).
 
 ## Known issues
-* Also when history is disabled in homee the ioBroker Admin shows as it is active  in Objects screen.
 * maybe not all error cases are catched
 * nodejs 10 NOT WORKING because of too old Webocket Library in Homee-API-Library
 
 ## TODO
-* Homeegramme support?
 * More detailed documentation?
 
 ## Changelog
+
+### 0.2.0 (2018.07.04)
+* (Apollon77) Fix History logic and add Homeegram support
 
 ### 0.1.1 (2018.07.04)
 * (Apollon77) initial version

@@ -74,6 +74,13 @@ adapter.on('stateChange', (id, state) => {
 
     id = id.substr(adapter.namespace.length + 1);
     const idParts = id.split('.');
+
+    if (idParts[0] === 'Homee-0' && idParts[1] === 'Homeegrams') {
+        adapter.log.debug('stateChange ' + id + ' --> ' + idParts[2] + ':' + JSON.stringify(state));
+        homee.send('PUT:homeegrams/' + idParts[2] + '?play=1');
+        return;
+    }
+
     let nodeId = parseInt(idParts[0].split('-')[1], 10);
     if (nodeId === 0) nodeId = -1;
     const attributeId = parseInt(idParts[1].split('-')[1], 10);
@@ -106,6 +113,8 @@ function updateDev(node) {
                     name: node_name,
                     profile: node.profile
                 }
+            }, () => {
+                if (nodeId === 'Homee-0') createHomeegram(nodeId);
             });
         }
         else {
@@ -117,10 +126,39 @@ function updateDev(node) {
                     name: node_name,
                     profile: node.profile
                 }
-            }, {});
+            }, () => {
+                if (nodeId === 'Homee-0') createHomeegram(nodeId);
+            });
         }
     });
     return nodeId;
+}
+
+function createHomeegram(homeeId) {
+    const nodeId = 'Homee-0.Homeegrams';
+    adapter.log.debug('createHomeegram ' + nodeId);
+    // create dev
+    adapter.getObject(nodeId, (err, obj) => {
+        if (!err && obj) {
+            adapter.extendObject(nodeId, {
+                type: 'channel',
+                common: {name: 'Homee.Homeegrams'},
+                native: {
+                    name: 'Homee.Homeegrams',
+                }
+            });
+        }
+        else {
+            adapter.setObject(nodeId, {
+                type: 'channel',
+                common: {name: 'Homee.Homeegrams'},
+                native: {
+                    name: 'Homee.Homeegrams',
+                }
+            });
+        }
+    });
+    homee.send('GET:homeegrams');
 }
 
 function updateState(node_id, node_name, attribute, node_history) {
@@ -149,23 +187,42 @@ function updateState(node_id, node_name, attribute, node_history) {
         }
     }
 
-    if (node_history) {
-        common.custom = {};
-        common.custom[adapter.namespace] = {
-            enabled: true
-        };
-    }
-    else {
-        common.custom = {};
-        common.custom[adapter.namespace] = {
-            enabled: false
-        };
-    }
-
     adapter.log.debug('updateState ' + realId + ': value = ' + value + ' history=' + node_history + '/common= ' + JSON.stringify(common));
 
     adapter.getObject(realId, (err, obj) => {
         if (!err && obj) {
+
+            if (!node_history) {
+                if (obj.common.custom && obj.common.custom[adapter.namespace] && obj.common.custom[adapter.namespace].enabled) {
+                    obj.common.custom[adapter.namespace].enabled = false;
+                }
+                let found  = false;
+                let custom = obj.common.custom;
+                for (let inst in custom) {
+                    if (!custom.hasOwnProperty(inst)) continue;
+                    if (!custom[inst].enabled) {
+                        delete custom[inst];
+                    } else {
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    obj.common.custom = null;
+                }
+            }
+            if (node_history) {
+                if (! obj.common.custom) obj.common.custom = {};
+                obj.common.custom[adapter.namespace] = {
+                    enabled: true
+                };
+            }
+            for (let key in common) {
+                obj.common[key] = common[key];
+            }
+            obj.native.id = attribute.id;
+            obj.native.node_id = attribute.node_id;
+            obj.native.type = attribute.type;
+            adapter.setObject(realId, obj, () => adapter.setState(realId, value, true));
             /*
             if (obj.common.custom && obj.common.custom[adapter.namespace] !== undefined && !node_history) {
                 obj.common.custom[adapter.namespace].enabled = false;
@@ -191,7 +248,7 @@ function updateState(node_id, node_name, attribute, node_history) {
             obj.native.type = attribute.type;
             adapter.log.info('setObject ' + realId + ':' + JSON.stringify(obj));
             adapter.setObject(realId, obj, () => adapter.setState(realId, value, true));*/
-            adapter.extendObject(realId, {
+            /*adapter.extendObject(realId, {
                 type: 'state',
                 common: common,
                 native: {
@@ -199,7 +256,7 @@ function updateState(node_id, node_name, attribute, node_history) {
                     node_id: attribute.node_id,
                     type: attribute.type
                 }
-            }, () => adapter.setState(realId, value, true));
+            }, () => adapter.setState(realId, value, true));*/
         }
         else {
             adapter.setObject(realId, {
@@ -300,6 +357,55 @@ function initNode(node) {
     }
 }
 
+function initHomeegrams(homeegrams) {
+    adapter.log.info('initialize ' + homeegrams.length + ' homeegrams');
+    adapter.log.silly('Received HOMEEGRAMS: ' + JSON.stringify(homeegrams));
+    for (let i = 0; i < homeegrams.length; i++) {
+        initHomeegram(homeegrams[i]);
+    }
+}
+
+function initHomeegram(homeegram) {
+    const nodeId = 'Homee-0.Homeegrams.' + homeegram.id;
+    const homeegram_name = decodeURIComponent(homeegram.name);
+    adapter.log.debug('Initialize Homeegram ' + homeegram.id + ': name = ' + homeegram_name + ' as ' + nodeId);
+    // create states
+    adapter.getObject(nodeId, (err, obj) => {
+        if (!err && obj) {
+            adapter.extendObject(nodeId, {
+                type: 'state',
+                common: {
+                    name: homeegram_name,
+                    role: 'button',
+                    type: 'boolean',
+                    read: false,
+                    write: !!homeegram.triggers.switch_trigger
+                },
+                native: {
+                    id: homeegram.id,
+                    name: homeegram_name
+                }
+            });
+        }
+        else {
+            adapter.setObject(nodeId, {
+                type: 'state',
+                common: {
+                    name: homeegram_name,
+                    role: 'button',
+                    type: 'boolean',
+                    read: false,
+                    write: !!homeegram.triggers.switch_trigger
+                },
+                native: {
+                    id: homeegram.id,
+                    name: homeegram_name
+                }
+            }, {});
+        }
+    });
+}
+
 function processMessage(msg) {
     if (msg.command === 'getHistory') {
         getHistory(msg);
@@ -346,7 +452,7 @@ function parseHistorySeries(serie, results) {
     }
     adapter.log.silly('SERIE:' + JSON.stringify(serie));
     if (serie.error || !serie.columns || !serie.values) {
-        adapter.log.info('No datain history response: ' + JSON.stringify(serie));
+        adapter.log.info('No data in history response: ' + JSON.stringify(serie));
         return results;
     }
 
@@ -423,7 +529,7 @@ function getHistory(msg) {
         }
 
         if (!result.length) {
-            adapter.log.info('No Data');
+            adapter.log.debug('No Data');
             adapter.sendTo(msg.from, msg.command, {
                 result:     [],
                 step:       null,
@@ -510,6 +616,7 @@ function main() {
 
         homee.on('attribute_history', (history) => processHistory(history));
 
+        homee.on('homeegrams', (homeegrams) => initHomeegrams(homeegrams));
         // ...tbc
 
         homee.connect().then(() => {

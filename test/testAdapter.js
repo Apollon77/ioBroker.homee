@@ -187,87 +187,93 @@ describe('Test ' + adapterShortName + ' adapter', () => {
         setTimeout(() => done(), 20000);
     }).timeout(60000);
 
-/*    it('Test ' + adapterShortName + ' Wrapper: Verify Init', done => {
-        states.getState(adapterShortName + '.0.Switch-name-1.Switch-name-1.On', (err, state) => {
+    it('Test ' + adapterShortName + ' Wrapper: Verify Init', done => {
+        states.getState(adapterShortName + '.0.OpenCloseWithTemperatureAndBrightnessSensor-15.FirmwareRevision-63', (err, state) => {
             expect(err).to.not.exist;
-            expect(state.val).to.be.false;
+            expect(state.val).to.be.equal(3.95);
 
-            states.getState(adapterShortName + '.0.Sun.Accessory-Information.Model', (err, state) => {
-                expect(err).to.not.exist;
-                expect(state.val).to.be.equal('Sun Position');
-
-                states.getState(adapterShortName + '.0.Sun.Sun.Altitude', (err, state) => {
-                    expect(err).to.not.exist;
-                    expect(state.val).to.exist;
-                    done();
-                });
-            });
+            done();
         });
     });
 
-    it('Test ' + adapterShortName + ' Wrapper: Test Change from inside', done => {
-        request('http://localhost:61828/?accessoryId=switch1&state=true', (error, response, body) => {
-            expect(error).to.be.null;
-            expect(response && response.statusCode).to.be.equal(200);
+    it('Test ' + adapterShortName + ': Test Change from homee non-ack', done => {
+        const data = {
+            "attribute": {
+                "id": 63,
+                "state": 1,
+                "node_id": 15,
+                "instance": 1,
+                "minimum": 0.0,
+                "maximum": 100.0,
+                "current_value": 10.9,
+                "target_value": 50.5,
+                "last_value": 50.0,
+                "data": "",
+                "unit": "%25",
+                "step_value": 0.5,
+                "editable": 1,
+                "type": 4,
+                "last_changed": 10153,
+                "changed_by": 1,
+                "changed_by_id": 0,
+                "based_on": 1,
+                "options": []
+            }
+        };
+        wsConnection.send(JSON.stringify(data));
+        states.getState(adapterShortName + '.0.OpenCloseWithTemperatureAndBrightnessSensor-15.FirmwareRevision-63', (err, state) => {
+            expect(err).to.not.exist;
+            expect(state.val).to.be.equal(3.95);
 
-            setTimeout(function() {
-                expect(lastHTTPRequest).to.be.null;
-                states.getState(adapterShortName + '.0.Switch-name-1.Switch-name-1.On', (err, state) => {
-                    expect(err).to.not.exist;
-                    expect(state.val).to.be.true;
-                    done();
-                });
-            }, 3000);
+            done();
         });
+
     }).timeout(10000);
 
-    it('Test ' + adapterShortName + ' Wrapper: Test change via characteristic', done => {
-        states.setState(adapterShortName + '.0.Switch-name-1.Switch-name-1.On', {val: false, ack: false}, err => {
+    it('Test ' + adapterShortName + ': Test Change from homee', done => {
+        const data = {
+            "attribute": {
+                "id": 63,
+                "state": 1,
+                "node_id": 15,
+                "instance": 1,
+                "minimum": 0.0,
+                "maximum": 100.0,
+                "current_value": 50.5,
+                "target_value": 50.5,
+                "last_value": 50.0,
+                "data": "",
+                "unit": "%25",
+                "step_value": 0.5,
+                "editable": 1,
+                "type": 4,
+                "last_changed": 10153,
+                "changed_by": 1,
+                "changed_by_id": 0,
+                "based_on": 1,
+                "options": []
+            }
+        };
+        wsConnection.send(JSON.stringify(data));
+        states.getState(adapterShortName + '.0.OpenCloseWithTemperatureAndBrightnessSensor-15.FirmwareRevision-63', (err, state) => {
+            expect(err).to.not.exist;
+            expect(state.val).to.be.equal(50.5);
+
+            done();
+        });
+
+    }).timeout(10000);
+
+    it('Test ' + adapterShortName + ': Test change via iobroker', done => {
+        states.setState(adapterShortName + '.0.OpenCloseWithTemperatureAndBrightnessSensor-15.FirmwareRevision-63', {val: 77.7, ack: false}, err => {
             expect(err).to.not.exist;
 
             setTimeout(function() {
                 expect(lastHTTPRequest).to.be.equal('/switch1?off');
-                states.getState(adapterShortName + '.0.Switch-name-1.Switch-name-1.On', (err, state) => {
-                    expect(err).to.not.exist;
-                    expect(state.val).to.be.false;
-                    done();
-                });
+                done();
             }, 3000);
         });
     }).timeout(10000);
-
-    it('Test ' + adapterShortName + ' Wrapper: Test change via characteristic 2', done => {
-        states.setState(adapterShortName + '.0.Switch-name-1.Switch-name-1.On', {val: true, ack: false}, err => {
-            expect(err).to.not.exist;
-
-            setTimeout(function() {
-                expect(lastHTTPRequest).to.be.equal('/switch1?on');
-                states.getState(adapterShortName + '.0.Switch-name-1.Switch-name-1.On', (err, state) => {
-                    expect(err).to.not.exist;
-                    expect(state.val).to.be.true;
-                    done();
-                });
-            }, 3000);
-        });
-    }).timeout(10000);
-
-    it('Test ' + adapterShortName + ' Wrapper: Test Change from inside 2', done => {
-        lastHTTPRequest = null;
-        request('http://localhost:61828/?accessoryId=switch1&state=false', (error, response, body) => {
-            expect(error).to.be.null;
-            expect(response && response.statusCode).to.be.equal(200);
-
-            setTimeout(function() {
-                expect(lastHTTPRequest).to.be.null;
-                states.getState(adapterShortName + '.0.Switch-name-1.Switch-name-1.On', (err, state) => {
-                    expect(err).to.not.exist;
-                    expect(state.val).to.be.false;
-                    done();
-                });
-            }, 3000);
-        });
-    }).timeout(10000);
-    */
 
     after('Test ' + adapterShortName + ' adapter: Stop js-controller', function (done) {
         this.timeout(10000);

@@ -278,6 +278,7 @@ adapter.on('ready', () => {
 }*/
 
 function initNodes(nodes) {
+    adapter.log.info('initialize ' + nodes.length + ' nodes');
     adapter.log.silly('Received NODES: ' + JSON.stringify(nodes));
     for (let i = 0; i < nodes.length; i++) {
         initNode(nodes[i]);
@@ -343,6 +344,11 @@ function parseHistorySeries(serie, results) {
         results = [];
     }
     adapter.log.silly('SERIE:' + JSON.stringify(serie));
+    if (serie.error || !serie.columns || !serie.values) {
+        adapter.log.info('No datain history response: ' + JSON.stringify(serie));
+        return results;
+    }
+
     let columnTime = serie.columns.indexOf('time');
     let columnValue = serie.columns.indexOf('value');
     for (let i = 0; i < serie.values.length; i++) {
@@ -402,12 +408,16 @@ function getHistory(msg) {
     // if specific id requested
     requestHistory(nodeId, attributeId, options, function (data) {
         let result = [];
-        for (let i = 0; i < data[0].series.length; i++) {
-            result = parseHistorySeries(data[0].series[i], result);
-        }
-        if (options.addId) {
-            for (let j = 0; j < result.length; j++) {
-                result[j].id = msg.message.id;
+        let err = null;
+        if (data[0].error) error = data[0].error;
+        if (data[0].series) {
+            for (let i = 0; i < data[0].series.length; i++) {
+                result = parseHistorySeries(data[0].series[i], result);
+            }
+            if (options.addId) {
+                for (let j = 0; j < result.length; j++) {
+                    result[j].id = msg.message.id;
+                }
             }
         }
 
@@ -416,7 +426,7 @@ function getHistory(msg) {
             adapter.sendTo(msg.from, msg.command, {
                 result:     [],
                 step:       null,
-                error:      null
+                error:      err
             }, msg.callback);
             return;
         }
@@ -437,7 +447,7 @@ function getHistory(msg) {
 
         adapter.sendTo(msg.from, msg.command, {
             result:     result,
-            error:      null,
+            error:      err,
             sessionId:  options.sessionId
         }, msg.callback);
     });
@@ -462,15 +472,15 @@ function main() {
         //homee.on('message', (message) => adapter.log.silly('MESSAGE: ' + JSON.stringify(message)));
 
         homee.on('connected', () => {
-            adapter.log.debug('CONNECTED');
+            adapter.log.info('CONNECTED');
             adapter.setState('info.connection', true, true);
         });
         homee.on('disconnected', (reason) => {
-            adapter.log.debug('DISCONNECTED: ' + JSON.stringify(reason));
+            adapter.log.info('DISCONNECTED: ' + JSON.stringify(reason));
             adapter.setState('info.connection', false, true);
         });
         homee.on('reconnect', (retries) => {
-            adapter.log.debug('RECONNECT: ' + JSON.stringify(retries));
+            adapter.log.info('RECONNECT: ' + JSON.stringify(retries));
         });
         homee.on('maxRetries', (retries) => {
             adapter.log.debug('MAXRETRIES: ' + JSON.stringify(retries));

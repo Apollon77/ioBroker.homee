@@ -26,7 +26,8 @@ let wsConnection;
 let lastWSRequest = null;
 
 function setupServer(port, callback) {
-    httpServer = new http.createServer(function (req, res) {
+
+    const server = new http.createServer(function (req, res) {
         const header = req.headers.authorization || '';        // get the header
         const token=header.split(/\s+/).pop() || '';            // and the encoded auth token
         const auth=new Buffer.from(token, 'base64').toString();    // convert from base64
@@ -39,8 +40,9 @@ function setupServer(port, callback) {
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('access_token=e663e30818201d28dd07803e57333bed4f15803a&user_id=23&device_id=1&expires=360');
     });
+    httpServer = server;
 
-    wsServer = new WebSocket.Server({ httpServer });
+    wsServer = new WebSocket.Server({ server });
 
     wsServer.on('connection', function connection(ws) {
         wsConnection = ws;

@@ -214,7 +214,8 @@ function updateState(node_id, node_name, attribute, node_history) {
     });
 }
 
-function setState(node_id, attribute_id, attribute) {
+function setStateFromHomee(node_id, attribute_id, attribute) {
+    if (node_id === -1) node_id = 0;
     const id = node_id + '.' + attribute_id;
     let value = attribute.current_value;
     if (!attributeMap[id]) {
@@ -485,7 +486,7 @@ function main() {
         });*/
         homee.on('attribute', (attribute) => {
             adapter.log.silly('ATTRIBUTE: ' + JSON.stringify(attribute));
-            setState(attribute.node_id, attribute.id, attribute);
+            setStateFromHomee(attribute.node_id, attribute.id, attribute);
         });
 
         homee.on('nodes', (nodes) => initNodes(nodes));

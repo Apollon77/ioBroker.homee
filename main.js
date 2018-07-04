@@ -244,7 +244,7 @@ function setStateFromHomee(node_id, attribute_id, attribute) {
         adapter.setState(realId, value, true);
     }
     else {
-        adapter.log.debug('Ignore value change for ' + realId + ' = ' + value + '(' + attribute.current_value + ' --> ' + attribute.target_value + ')');
+        adapter.log.debug('Ignore value change for ' + realId + ' = ' + value + ' (' + attribute.current_value + ' --> ' + attribute.target_value + ')');
     }
 }
 

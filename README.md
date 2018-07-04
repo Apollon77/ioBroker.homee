@@ -1,18 +1,22 @@
-![Logo](admin/ham.png)
-# ioBroker Homee Adapter
+![Logo](admin/homee.png)
+# ioBroker homee Adapter
 =================
 
 ## Description
-This adapter connects ioBroker to homee
+This adapter connects ioBroker to homee and provides the following features:
+* allows connection via IP or homee-ID and username/password
+* read all devices(nodes) and states (attributes) and show their values including updates in ioBroker
+* allow changing values in ioBroker and send them back to homee to control devices
+* acts as a ioBroker History provider for all states devices where history is enabled in homee. This means you can use the history values stored in homee to display in ioBroker using flot, Admin or also JavaScript including all aggregations on data level as known from e.g. History adapter
 
 ## TODO
-* Tests
-* More documentation?!
+* Homeegramme support?
+* More detailed documentation?
 
 ## Changelog
 
-### 0.0.1 (2018.06.25)
-* (Apollon77) initial commit
+### 0.1.0 (2018.07.04)
+* (Apollon77) initial version
 
 ## License
 The MIT License (MIT)

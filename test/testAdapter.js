@@ -42,8 +42,8 @@ function setupServer(port, callback) {
         const auth=new Buffer.from(token, 'base64').toString();    // convert from base64
         const parts=auth.split(/:/);                          // split on colon
         console.log(parts);
-        //expect(parts[0]).to.be.equal('testuser');
-        //expect(parts[1]).to.be.equal('testpassword');
+        expect(parts[0]).to.be.equal('testuser');
+        expect(parts[1]).to.be.equal('e9e633097ab9ceb3e48ec3f70ee2beba41d05d5420efee5da85f97d97005727587fda33ef4ff2322088f4c79e8133cc9cd9f3512f4d3a303cbdb5bc585415a00'); //sha512('testpassword').toString('hex'));
 
         lastHTTPRequest = req.url;
         console.log('HTTP Received: ' + lastHTTPRequest);
@@ -238,7 +238,7 @@ describe('Test ' + adapterShortName + ' adapter', () => {
     it('Test ' + adapterShortName + ': Test Change from homee', done => {
         const data = {
             "attribute": {
-                "id": 63,
+                "id": 66,
                 "state": 1,
                 "node_id": 15,
                 "instance": 1,
@@ -274,7 +274,7 @@ describe('Test ' + adapterShortName + ' adapter', () => {
             expect(err).to.not.exist;
 
             setTimeout(function() {
-                expect(lastHTTPRequest).to.be.equal('/switch1?off');
+                expect(lastHTTPRequest).to.be.equal('PUT:/nodes/15/attributes/66?target_value=77.7');
                 done();
             }, 3000);
         });

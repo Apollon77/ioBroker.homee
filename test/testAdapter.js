@@ -25,6 +25,14 @@ let wsServer;
 let wsConnection;
 let lastWSRequest = null;
 
+function decrypt(key, value) {
+    let result = '';
+    for (let i = 0; i < value.length; ++i) {
+        result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
+    }
+    return result;
+}
+
 function setupServer(port, callback) {
 
     const server = new http.createServer(function (req, res) {
@@ -130,7 +138,7 @@ describe('Test ' + adapterShortName + ' adapter', () => {
     before('Test ' + adapterShortName + ' adapter: Start js-controller', function (_done) {
         this.timeout(600000); // because of first install from npm
 
-        setup.setupController(() => {
+        setup.setupController(systemConfig => {
             const config = setup.getAdapterConfig();
             // enable adapter
             config.common.enabled  = true;
@@ -138,7 +146,7 @@ describe('Test ' + adapterShortName + ' adapter', () => {
 
             config.native.host = '127.0.0.1';
             config.native.user = 'testuser';
-            config.native.password = 'testpassword';
+            config.native.password = decrypt(systemConfig.native.secret, 'testpassword');
 
             setup.setAdapterConfig(config.common, config.native);
 

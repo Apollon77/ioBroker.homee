@@ -65,6 +65,11 @@ function setupServer(port, callback) {
                 ws.send(nodes);
                 console.log('sending content of nodes.json');
             }
+            else if (message === 'GET:homeegrams') {
+                const homeegrams = fs.readFileSync(__dirname + "/homeegrams.json");
+                ws.send(homeegrams);
+                console.log('sending content of homeegrams.json');
+            }
         });
 
         //ws.send('something');

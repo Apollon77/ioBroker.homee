@@ -4,15 +4,15 @@
 
 systemDictionary = {
     "Host": {
-        "en": "Hostname/IP",
-        "de": "Hostname / IP",
-        "ru": "Hostname / IP",
-        "pt": "Nome do host / IP",
-        "nl": "Hostname / IP",
-        "fr": "Nom d'hôte / IP",
-        "it": "Hostname / IP",
-        "es": "Nombre de host / IP",
-        "pl": "Nazwa hosta / adres IP"
+        "en": "homee-ID / Hostname / IP",
+        "de": "home-ID / Hostname / IP",
+        "ru": "homee-ID / имя хоста / IP-",
+        "pt": "homee-ID / Hostname / IP",
+        "nl": "homee-ID / hostnaam / IP",
+        "fr": "homee-ID / Nom d'hôte / IP",
+        "it": "homee-ID / Nome host / IP",
+        "es": "homee-ID / Nombre de host / IP",
+        "pl": "homee-ID / nazwa hosta / adres IP"
     },
     "User": {
         "en": "Username",

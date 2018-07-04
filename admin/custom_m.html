@@ -1,0 +1,41 @@
+<script type="text/x-iobroker" data-template-name="homee">
+    <div class="row">
+        <div class="col s4">
+            <input type="checkbox" data-field="enabled" data-default="false" disabled/>
+            <!-- this field is mandatory, just to find out if to include this settings or not</span-->
+            <span class="translate">enabled</span>
+        </div>
+        <div class="col s8">
+            <span class="translate">enabled/disabled by homee, not changeable here</span>
+        </div>
+    </div>
+</script>
+
+<!-- translations -->
+<script type="text/javascript">
+    systemDictionary = $.extend(systemDictionary, {
+        "enabled": {                                     "en": "enabled",                                         "de": "Aktiviert",                                       "ru": "активно",                                         "pt": "ativado",                                         "nl": "ingeschakeld",                                    "fr": "activée",                                         "it": "abilitato",                                       "es": "habilitado",                                      "pl": "włączony"},
+        "enabled/disabled by homee, not changeable here": {
+            "en": "enabled/disabled by homee, not changeable here",
+            "de": "aktiviert / deaktiviert von homee, hier nicht änderbar",
+            "ru": "включен или отключен homee, не меняющийся здесь",
+            "pt": "habilitado / desabilitado por homee, não alterável aqui",
+            "nl": "ingeschakeld / uitgeschakeld door homee, hier niet wijzigbaar",
+            "fr": "activé / désactivé par homee, non modifiable ici",
+            "it": "abilitato / disabilitato da homee, non modificabile qui",
+            "es": "habilitado / deshabilitado por homee, no modificable aquí",
+            "pl": "włączone / wyłączone przez homee, tutaj nie można tego zmienić"
+        }
+    });
+    // There are two ways how to predefine default settings:
+    // - with attribute "data-default" (content independent)
+    // - with function in global variable "defaults". Function name is equal with adapter name.
+    //   as input function receives object with all information concerning it
+    if (typeof defaults !== 'undefined') {
+        defaults.homee = function (obj, instanceObj) {
+            return {
+                enabled: false,
+            };
+        }
+    }
+</script>

@@ -59,6 +59,7 @@ function setupServer(port, callback) {
         console.log('WS Connected ...');
         ws.on('message', function incoming(message) {
             console.log('WS received: %s', message);
+            lastWSRequest = message;
             if (message === 'GET:nodes') {
                 const nodes = fs.readFileSync(__dirname + "/nodes.json");
                 ws.send(nodes);
@@ -226,13 +227,14 @@ describe('Test ' + adapterShortName + ' adapter', () => {
             }
         };
         wsConnection.send(JSON.stringify(data));
-        states.getState(adapterShortName + '.0.OpenCloseWithTemperatureAndBrightnessSensor-15.WakeUpInterval-66', (err, state) => {
-            expect(err).to.not.exist;
-            expect(state.val).to.be.equal(1440);
+        setTimeout(function() {
+            states.getState(adapterShortName + '.0.OpenCloseWithTemperatureAndBrightnessSensor-15.WakeUpInterval-66', (err, state) => {
+                expect(err).to.not.exist;
+                expect(state.val).to.be.equal(1440);
 
-            done();
-        });
-
+                done();
+            });
+        }, 1000);
     }).timeout(10000);
 
     it('Test ' + adapterShortName + ': Test Change from homee', done => {
@@ -260,12 +262,14 @@ describe('Test ' + adapterShortName + ' adapter', () => {
             }
         };
         wsConnection.send(JSON.stringify(data));
-        states.getState(adapterShortName + '.0.OpenCloseWithTemperatureAndBrightnessSensor-15.WakeUpInterval-66', (err, state) => {
-            expect(err).to.not.exist;
-            expect(state.val).to.be.equal(50.5);
+        setTimeout(function() {
+            states.getState(adapterShortName + '.0.OpenCloseWithTemperatureAndBrightnessSensor-15.WakeUpInterval-66', (err, state) => {
+                expect(err).to.not.exist;
+                expect(state.val).to.be.equal(50.5);
 
-            done();
-        });
+                done();
+            });
+        }, 1000);
 
     }).timeout(10000);
 
@@ -274,9 +278,9 @@ describe('Test ' + adapterShortName + ' adapter', () => {
             expect(err).to.not.exist;
 
             setTimeout(function() {
-                expect(lastHTTPRequest).to.be.equal('PUT:/nodes/15/attributes/66?target_value=77.7');
+                expect(lastWSRequest).to.be.equal('PUT:/nodes/15/attributes/66?target_value=77.7');
                 done();
-            }, 3000);
+            }, 1000);
         });
     }).timeout(10000);
 

@@ -9,6 +9,10 @@ This adapter connects ioBroker to homee and provides the following features:
 * allow changing values in ioBroker and send them back to homee to control devices
 * acts as a ioBroker History provider for all states devices where history is enabled in homee. This means you can use the history values stored in homee to display in ioBroker using flot, Admin or also JavaScript including all aggregations on data level as known from e.g. History adapter
 
+## Known issues
+* Also when history is disabled in homee the ioBroker Admin shows as it is active  in Objects screen.
+* maybe not all error cases are catched
+
 ## TODO
 * Homeegramme support?
 * More detailed documentation?

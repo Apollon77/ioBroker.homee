@@ -26,7 +26,7 @@ let wsConnection;
 let lastWSRequest = null;
 
 function setupServer(port, callback) {
-    httpServer = http.createServer(function (req, res) {
+    httpServer = new http.createServer(function (req, res) {
         const header = req.headers.authorization || '';        // get the header
         const token=header.split(/\s+/).pop() || '';            // and the encoded auth token
         const auth=new Buffer.from(token, 'base64').toString();    // convert from base64
@@ -38,7 +38,7 @@ function setupServer(port, callback) {
         console.log('HTTP Received: ' + lastHTTPRequest);
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('access_token=e663e30818201d28dd07803e57333bed4f15803a&user_id=23&device_id=1&expires=360');
-    }).listen(port);
+    });
 
     wsServer = new WebSocket.Server({ httpServer });
 
@@ -56,6 +56,8 @@ function setupServer(port, callback) {
 
         //ws.send('something');
     });
+
+    httpServer.listen(port);
 
     setTimeout(function() {
         callback();
@@ -120,8 +122,8 @@ function sendTo(target, command, message, callback) {
     });
 }
 
-describe('Test ' + adapterShortName + ' Global adapter', () => {
-    before('Test ' + adapterShortName + ' Global adapter: Start js-controller', function (_done) {
+describe('Test ' + adapterShortName + ' adapter', () => {
+    before('Test ' + adapterShortName + ' adapter: Start js-controller', function (_done) {
         this.timeout(600000); // because of first install from npm
 
         setup.setupController(() => {
@@ -130,9 +132,9 @@ describe('Test ' + adapterShortName + ' Global adapter', () => {
             config.common.enabled  = true;
             config.common.loglevel = 'debug';
 
-            config.native.useGlobalHomebridge = true;
-            config.native.globalHomebridgeBasePath = process.env.NODE_GLOBAL_DIR + "/homebridge/";
-            config.native.globalHomebridgeConfigPath = __dirname + "/homebridge/";
+            config.native.host = '127.0.0.1';
+            config.native.user = 'testuser';
+            config.native.password = 'testpassword';
 
             setup.setAdapterConfig(config.common, config.native);
 
@@ -152,7 +154,7 @@ describe('Test ' + adapterShortName + ' Global adapter', () => {
 /*
     ENABLE THIS WHEN ADAPTER RUNS IN DEAMON MODE TO CHECK THAT IT HAS STARTED SUCCESSFULLY
 */
-    it('Test ' + adapterShortName + ' Global adapter: Check if adapter started', done => {
+    it('Test ' + adapterShortName + ' adapter: Check if adapter started', done => {
         checkConnectionOfAdapter(res => {
             if (res) console.log(res);
             expect(res).not.to.be.equal('Cannot check connection');
@@ -169,11 +171,11 @@ describe('Test ' + adapterShortName + ' Global adapter', () => {
         });
     }).timeout(60000);
 
-/*    it('Test ' + adapterShortName + ' Wrapper adapter: Wait for init', done => {
+    it('Test ' + adapterShortName + ' Wrapper adapter: Wait for init', done => {
         setTimeout(() => done(), 20000);
     }).timeout(60000);
 
-    it('Test ' + adapterShortName + ' Wrapper: Verify Init', done => {
+/*    it('Test ' + adapterShortName + ' Wrapper: Verify Init', done => {
         states.getState(adapterShortName + '.0.Switch-name-1.Switch-name-1.On', (err, state) => {
             expect(err).to.not.exist;
             expect(state.val).to.be.false;
@@ -255,7 +257,7 @@ describe('Test ' + adapterShortName + ' Global adapter', () => {
     }).timeout(10000);
     */
 
-    after('Test ' + adapterShortName + ' Global adapter: Stop js-controller', function (done) {
+    after('Test ' + adapterShortName + ' adapter: Stop js-controller', function (done) {
         this.timeout(10000);
 
         setup.stopController(function (normalTerminated) {

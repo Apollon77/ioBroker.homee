@@ -192,7 +192,14 @@ function updateState(node_id, node_name, attribute, node_history) {
     adapter.getObject(realId, (err, obj) => {
         if (!err && obj) {
 
-            if (!node_history) {
+            //adapter.log.info('getObject ' + realId + ':' + JSON.stringify(obj));
+            if (node_history) {
+                if (! obj.common.custom) obj.common.custom = {};
+                obj.common.custom[adapter.namespace] = {
+                    enabled: true
+                };
+            }
+            else {
                 if (obj.common.custom && obj.common.custom[adapter.namespace] && obj.common.custom[adapter.namespace].enabled) {
                     obj.common.custom[adapter.namespace].enabled = false;
                 }
@@ -201,7 +208,7 @@ function updateState(node_id, node_name, attribute, node_history) {
                 for (let inst in custom) {
                     if (!custom.hasOwnProperty(inst)) continue;
                     if (!custom[inst].enabled) {
-                        delete custom[inst];
+                        delete obj.common.custom[inst];
                     } else {
                         found = true;
                     }
@@ -210,18 +217,13 @@ function updateState(node_id, node_name, attribute, node_history) {
                     obj.common.custom = null;
                 }
             }
-            if (node_history) {
-                if (! obj.common.custom) obj.common.custom = {};
-                obj.common.custom[adapter.namespace] = {
-                    enabled: true
-                };
-            }
             for (let key in common) {
                 obj.common[key] = common[key];
             }
             obj.native.id = attribute.id;
             obj.native.node_id = attribute.node_id;
             obj.native.type = attribute.type;
+            //adapter.log.info('setObject ' + realId + ':' + JSON.stringify(obj));
             adapter.setObject(realId, obj, () => adapter.setState(realId, value, true));
             /*
             if (obj.common.custom && obj.common.custom[adapter.namespace] !== undefined && !node_history) {
@@ -259,6 +261,12 @@ function updateState(node_id, node_name, attribute, node_history) {
             }, () => adapter.setState(realId, value, true));*/
         }
         else {
+            if (node_history) {
+                if (! common.custom) common.custom = {};
+                common.custom[adapter.namespace] = {
+                    enabled: true
+                };
+            }
             adapter.setObject(realId, {
                 type: 'state',
                 common: common,
@@ -516,7 +524,7 @@ function getHistory(msg) {
     requestHistory(nodeId, attributeId, options, function (data) {
         let result = [];
         let err = null;
-        if (data[0].error) error = data[0].error;
+        if (data[0].error) err = data[0].error;
         if (data[0].series) {
             for (let i = 0; i < data[0].series.length; i++) {
                 result = parseHistorySeries(data[0].series[i], result);

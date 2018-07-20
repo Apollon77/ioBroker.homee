@@ -249,7 +249,7 @@ function updateState(node_id, node_name, attribute, node_history) {
             obj.native.node_id = attribute.node_id;
             obj.native.type = attribute.type;
             //adapter.log.info('setObject ' + realId + ':' + JSON.stringify(obj));
-            adapter.setObject(realId, obj, () => setStateFromHomee(node_id, attribute.id, attribute, true));
+            adapter.setObject(realId, obj, () => setStateFromHomee(attribute.node_id, attribute.id, attribute, true));
             //adapter.setState(realId, value, true));
             /*
             if (obj.common.custom && obj.common.custom[adapter.namespace] !== undefined && !node_history) {
@@ -301,7 +301,7 @@ function updateState(node_id, node_name, attribute, node_history) {
                     node_id: attribute.node_id,
                     type: attribute.type
                 }
-            }, () => setStateFromHomee(node_id, attribute.id, attribute, true));
+            }, () => setStateFromHomee(attribute.node_id, attribute.id, attribute, true));
         }
     });
 }

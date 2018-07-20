@@ -249,7 +249,7 @@ function updateState(node_id, node_name, attribute, node_history) {
             obj.native.node_id = attribute.node_id;
             obj.native.type = attribute.type;
             //adapter.log.info('setObject ' + realId + ':' + JSON.stringify(obj));
-            adapter.setObject(realId, obj, () => setStateFromHomee(node_id, attribute.id, attribute));
+            adapter.setObject(realId, obj, () => setStateFromHomee(node_id, attribute.id, attribute, true));
             //adapter.setState(realId, value, true));
             /*
             if (obj.common.custom && obj.common.custom[adapter.namespace] !== undefined && !node_history) {
@@ -301,12 +301,12 @@ function updateState(node_id, node_name, attribute, node_history) {
                     node_id: attribute.node_id,
                     type: attribute.type
                 }
-            }, () => adapter.setState(realId, value, true));
+            }, () => setStateFromHomee(node_id, attribute.id, attribute, true));
         }
     });
 }
 
-function setStateFromHomee(node_id, attribute_id, attribute) {
+function setStateFromHomee(node_id, attribute_id, attribute, initial) {
     if (node_id === -1) node_id = 0;
     const id = node_id + '.' + attribute_id;
     let value = attribute.current_value;
@@ -325,7 +325,7 @@ function setStateFromHomee(node_id, attribute_id, attribute) {
     else if (attributeMap[id].type === 'string') {
         value = attribute.data;
         if (attribute.unit === 'RGB') {
-            value = '#' + numberColorToHex(value);
+            value = '#' + numberColorToHex(attribute.current_value);
         }
     }
     else if (attributeMap[id].type === 'number') {
@@ -334,7 +334,7 @@ function setStateFromHomee(node_id, attribute_id, attribute) {
         }
     }
     const realId = attributeMap[id].id;
-    if (attribute.current_value === attribute.target_value) {
+    if (attribute.current_value === attribute.target_value && !initial) {
         adapter.log.debug('Value changed by homee for ' + realId + ' => ' + value);
         adapter.setState(realId, value, true);
     }
@@ -381,7 +381,7 @@ function initNodes(nodes) {
     if (!initDone) {
         initDone = true;
 
-        setTimeout(() => adapter.subscribeStates('*'), 2000); // delay till all objects are created, yes hack ...
+        setTimeout(() => adapter.subscribeStates('*'), 5000); // delay till all objects are created, yes hack ...
     }
 }
 

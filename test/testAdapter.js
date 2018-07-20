@@ -290,7 +290,7 @@ describe('Test ' + adapterShortName + ' adapter', () => {
     }).timeout(10000);
 
     it('Test ' + adapterShortName + ': Test homeegram trigger via iobroker', done => {
-        states.setState(adapterShortName + '.0.Homee-0.Homeegrams.1', {val: true, ack: false}, err => {
+        states.setState(adapterShortName + '.0.Homee-0.Homeegrams.1.play', {val: true, ack: false}, err => {
             expect(err).to.not.exist;
 
             setTimeout(function() {

@@ -334,7 +334,7 @@ function setStateFromHomee(node_id, attribute_id, attribute, initial) {
         }
     }
     const realId = attributeMap[id].id;
-    if (attribute.current_value === attribute.target_value && !initial) {
+    if (attribute.current_value === attribute.target_value || attributeMap[id].type === 'string' || initial) {
         adapter.log.debug('Value changed by homee for ' + realId + ' => ' + value);
         adapter.setState(realId, value, true);
     }

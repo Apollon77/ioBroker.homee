@@ -69,6 +69,17 @@ adapter.on('message', function (msg) {
     processMessage(msg);
 });
 
+function numberColorToHex(i) {
+    var bbggrr =  ("000000" + i.toString(16)).slice(-6);
+    var rrggbb = bbggrr.substr(4, 2) + bbggrr.substr(2, 2) + bbggrr.substr(0, 2);
+    return rrggbb;
+}
+
+function hexToNumberColor(rrggbb) {
+    var bbggrr = rrggbb.substr(4, 2) + rrggbb.substr(2, 2) + rrggbb.substr(0, 2);
+    return parseInt(bbggrr, 16);
+}
+
 adapter.on('stateChange', (id, state) => {
     if (!state || state.ack) return;
 
@@ -76,8 +87,14 @@ adapter.on('stateChange', (id, state) => {
     const idParts = id.split('.');
 
     if (idParts[0] === 'Homee-0' && idParts[1] === 'Homeegrams') {
-        adapter.log.debug('stateChange ' + id + ' --> ' + idParts[2] + ':' + JSON.stringify(state));
-        homee.send('PUT:homeegrams/' + idParts[2] + '?play=1');
+        if (idParts[3] === 'play') {
+            adapter.log.debug('stateChange ' + id + ' --> ' + idParts[2] + ' play :' + JSON.stringify(state));
+            homee.send('PUT:homeegrams/' + idParts[2] + '?play=1');
+        }
+        else if (idParts[3] === 'active') {
+            adapter.log.debug('stateChange ' + id + ' --> ' + idParts[2] + ' active:' + JSON.stringify(state));
+            homee.send('PUT:homeegrams/' + idParts[2] + '?active=' + (state.val ? 1 : 0));
+        }
         return;
     }
 
@@ -90,6 +107,11 @@ adapter.on('stateChange', (id, state) => {
     let value = state.val;
     if (attributeMap[lookupId].type === 'boolean') {
         value = value ? 1 : 0;
+    }
+    else if (attributeMap[lookupId].type === 'string' && attributeMap[lookupId].unit === 'RGB' && typeof state.val === 'string') {
+        var val = state.val;
+        if (val.substr(0,1) === '#') val = val.substr(1);
+        value = hexToNumberColor(val);
     }
     else if (attributeMap[lookupId] === 'string') {
         adapter.log.warn('Tell this to the Developer!! Type string not supported to set data: ' + id + ', data=' + value);
@@ -141,7 +163,7 @@ function createHomeegram(homeeId) {
     adapter.getObject(nodeId, (err, obj) => {
         if (!err && obj) {
             adapter.extendObject(nodeId, {
-                type: 'channel',
+                type: 'device',
                 common: {name: 'Homee.Homeegrams'},
                 native: {
                     name: 'Homee.Homeegrams',
@@ -150,7 +172,7 @@ function createHomeegram(homeeId) {
         }
         else {
             adapter.setObject(nodeId, {
-                type: 'channel',
+                type: 'device',
                 common: {name: 'Homee.Homeegrams'},
                 native: {
                     name: 'Homee.Homeegrams',
@@ -172,22 +194,25 @@ function updateState(node_id, node_name, attribute, node_history) {
     const nodeId = parseInt(node_id.split('-')[1], 10);
     const id = nodeId + '.' + attribute.id;
     adapter.log.debug('store lookup ' + id + ' for ' + realId);
-    attributeMap[id] = {type: common.type, id: realId};
+    attributeMap[id] = {type: common.type, unit: common.unit, role: common.role, id: realId};
 
     let value = attribute.current_value;
-    if (common.type === 'boolean') {
+    /*if (common.type === 'boolean') {
         value = !!value;
     }
     else if (common.type === 'string') {
         value = attribute.data;
+        if (attribute.unit === 'RGB') {
+            value = '#' + numberColorToHex(value);
+        }
     }
     else if (common.type === 'number') {
         if (attribute.unit === 'unixtimestamp') {
             value *= 1000;
         }
-    }
+    }*/
 
-    adapter.log.debug('updateState ' + realId + ': value = ' + value + ' history=' + node_history + '/common= ' + JSON.stringify(common));
+    adapter.log.debug('updateState ' + realId + ': origValue = ' + value + ' history=' + node_history + '/common= ' + JSON.stringify(common));
 
     adapter.getObject(realId, (err, obj) => {
         if (!err && obj) {
@@ -224,7 +249,8 @@ function updateState(node_id, node_name, attribute, node_history) {
             obj.native.node_id = attribute.node_id;
             obj.native.type = attribute.type;
             //adapter.log.info('setObject ' + realId + ':' + JSON.stringify(obj));
-            adapter.setObject(realId, obj, () => adapter.setState(realId, value, true));
+            adapter.setObject(realId, obj, () => setStateFromHomee(node_id, attribute.id, attribute));
+            //adapter.setState(realId, value, true));
             /*
             if (obj.common.custom && obj.common.custom[adapter.namespace] !== undefined && !node_history) {
                 obj.common.custom[adapter.namespace].enabled = false;
@@ -298,6 +324,9 @@ function setStateFromHomee(node_id, attribute_id, attribute) {
     }
     else if (attributeMap[id].type === 'string') {
         value = attribute.data;
+        if (attribute.unit === 'RGB') {
+            value = '#' + numberColorToHex(value);
+        }
     }
     else if (attributeMap[id].type === 'number') {
         if (attribute.unit === 'unixtimestamp') {
@@ -351,7 +380,8 @@ function initNodes(nodes) {
     }
     if (!initDone) {
         initDone = true;
-        adapter.subscribeStates('*');
+
+        setTimeout(() => adapter.subscribeStates('*'), 2000); // delay till all objects are created, yes hack ...
     }
 }
 
@@ -376,7 +406,7 @@ function initHomeegrams(homeegrams) {
 function initHomeegram(homeegram) {
     const nodeId = 'Homee-0.Homeegrams.' + homeegram.id;
     const homeegram_name = decodeURIComponent(homeegram.name);
-    adapter.log.debug('Initialize Homeegram ' + homeegram.id + ': name = ' + homeegram_name + ' as ' + nodeId);
+    adapter.log.debug('Initialize Channel Homeegram ' + homeegram.id + ': name = ' + homeegram_name + ' as ' + nodeId);
     // create states
     adapter.getObject(nodeId, (err, obj) => {
         if (!err && obj) {
@@ -393,7 +423,7 @@ function initHomeegram(homeegram) {
                     id: homeegram.id,
                     name: homeegram_name
                 }
-            });
+            }, () => initHomeegramStates(homeegram));
         }
         else {
             adapter.setObject(nodeId, {
@@ -409,9 +439,88 @@ function initHomeegram(homeegram) {
                     id: homeegram.id,
                     name: homeegram_name
                 }
-            }, {});
+            }, () => initHomeegramStates(homeegram));
         }
     });
+}
+
+function initHomeegramStates(homeegram) {
+    const nodeIdBase = 'Homee-0.Homeegrams.' + homeegram.id;
+    const homeegram_name = decodeURIComponent(homeegram.name);
+    adapter.log.debug('Initialize States Homeegram ' + homeegram.id + ': name = ' + homeegram_name + ' as ' + nodeIdBase);
+    // create states
+    const nodeIdActive = nodeIdBase + '.active';
+    adapter.getObject(nodeIdActive, (err, obj) => {
+        if (!err && obj) {
+            adapter.extendObject(nodeIdActive, {
+                type: 'state',
+                common: {
+                    name: 'active',
+                    role: 'switch',
+                    type: 'boolean',
+                    read: true,
+                    write: true
+                },
+                native: {
+                    id: homeegram.id,
+                    name: homeegram_name
+                }
+            }, () => adapter.setState(nodeIdActive, !!homeegram.active, true));
+        }
+        else {
+            adapter.setObject(nodeIdActive, {
+                type: 'state',
+                common: {
+                    name: 'active',
+                    role: 'button',
+                    type: 'boolean',
+                    read: false,
+                    write: !!homeegram.triggers.switch_trigger
+                },
+                native: {
+                    id: homeegram.id,
+                    name: homeegram_name
+                }
+            }, () => adapter.setState(nodeIdActive, !!homeegram.active, true));
+        }
+    });
+
+    const nodeIdPlay = nodeIdBase + '.play';
+    adapter.getObject(nodeIdPlay, (err, obj) => {
+        if (!err && obj) {
+            adapter.extendObject(nodeIdPlay, {
+                type: 'state',
+                common: {
+                    name: 'play',
+                    role: 'button',
+                    type: 'boolean',
+                    read: false,
+                    write: !!homeegram.triggers.switch_trigger
+                },
+                native: {
+                    id: homeegram.id,
+                    name: homeegram_name
+                }
+            }, () => adapter.setState(nodeIdPlay, false, true));
+        }
+        else {
+            adapter.setObject(nodeIdPlay, {
+                type: 'state',
+                common: {
+                    name: 'play',
+                    role: 'button',
+                    type: 'boolean',
+                    read: false,
+                    write: !!homeegram.triggers.switch_trigger
+                },
+                native: {
+                    id: homeegram.id,
+                    name: homeegram_name
+                }
+            }, () => adapter.setState(nodeIdPlay, false, true));
+        }
+    });
+
 }
 
 function processMessage(msg) {
@@ -623,6 +732,8 @@ function main() {
         homee.on('node', (node) => initNodes([node]));
 
         homee.on('attribute_history', (history) => processHistory(history));
+
+        homee.on('homeegram', (homeegram) => initHomeegrams([homeegram]));
 
         homee.on('homeegrams', (homeegrams) => initHomeegrams(homeegrams));
         // ...tbc

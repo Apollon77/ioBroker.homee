@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "homee",
-        "version": "0.2.0",
+        "version": "0.3.0",
         "news": {
+            "0.3.0": {
+                "en": "handling for RGB units, allow enabling/disabling of homeegramms",
+                "de": "Handhabung für RGB-Einheiten, ermöglichen aktivieren / deaktivieren von Homegramms",
+                "ru": "обработка для блоков RGB, позволяет включать / отключать домашние программы",
+                "pt": "manipulação de unidades RGB, permitir ativação / desativação de homeegramas",
+                "nl": "afhandeling voor RGB-eenheden, inschakelen / uitschakelen van huisgrammen",
+                "fr": "manipulation pour les unités RVB, permettre l'activation / désactivation des homeegramms",
+                "it": "gestione per unità RGB, consentire l'abilitazione / disabilitazione di homeegramms",
+                "es": "manejo de unidades RGB, permitir / deshabilitar homeegramms",
+                "pl": "obsługa jednostek RGB, umożliwia włączanie / wyłączanie homeegramów"
+            },
             "0.2.0": {
                 "en": "Fix History logic and add Homeegram support",
                 "de": "Repariere die History-Logik und füge Homeegram-Unterstützung hinzu",

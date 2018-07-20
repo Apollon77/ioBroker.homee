@@ -12,14 +12,15 @@ This adapter connects ioBroker to homee and provides the following features:
 This adapter is based on the outstanding work of [stfnhmplr](http://twitter.com/stfnhmplr) and his [homee-api](https://github.com/stfnhmplr/homee-api).
 
 ## Known issues
-* DO NOT activate other history providers on homee objects for now. There is a strange issue we are researching!
-* maybe not all error cases are catched
+* On js-controller <1.5.0 it can have strange effects when enabling other history providers on some of the roles (e.g. "switch")
 * nodejs 10 NOT WORKING because of too old Websocket Library in Homee-API-Library
 
-## TODO
-* More detailed documentation?
 
 ## Changelog
+
+### 0.3.0 (2018.07.2x)
+* (Apollon77) Special handling for RGB values (delete objects and restart adapter)
+* (Apollon77) Also allow enabling/disabling of Homeegrams (best delete objects unter Homee-0.Homeegrams!)
 
 ### 0.2.0 (2018.07.04)
 * (Apollon77) Fix History logic (try) and add Homeegram support

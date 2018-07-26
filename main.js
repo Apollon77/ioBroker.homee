@@ -89,11 +89,18 @@ adapter.on('stateChange', (id, state) => {
     if (idParts[0] === 'Homee-0' && idParts[1] === 'Homeegrams') {
         if (idParts[3] === 'play') {
             adapter.log.debug('stateChange ' + id + ' --> ' + idParts[2] + ' play :' + JSON.stringify(state));
-            homee.send('PUT:homeegrams/' + idParts[2] + '?play=1');
+            //homee.send('PUT:homeegrams/' + idParts[2] + '?play=1');
+            homee.play(idParts[2]);
         }
         else if (idParts[3] === 'active') {
             adapter.log.debug('stateChange ' + id + ' --> ' + idParts[2] + ' active:' + JSON.stringify(state));
-            homee.send('PUT:homeegrams/' + idParts[2] + '?active=' + (state.val ? 1 : 0));
+            //homee.send('PUT:homeegrams/' + idParts[2] + '?active=' + (state.val ? 1 : 0));
+            if (state.val) {
+                homee.activateHomeegram(idParts[2]);
+            }
+            else {
+                homee.deactivateHomeegram(idParts[2]);
+            }
         }
         return;
     }

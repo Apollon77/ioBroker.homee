@@ -1,9 +1,9 @@
 {
     "common": {
         "name": "homee",
-        "version": "0.3.0",
+        "version": "0.3.1",
         "news": {
-            "0.3.0": {
+            "0.3.1": {
                 "en": "handling for RGB units, allow enabling/disabling of homeegramms",
                 "de": "Handhabung für RGB-Einheiten, ermöglichen aktivieren / deaktivieren von Homegramms",
                 "ru": "обработка для блоков RGB, позволяет включать / отключать домашние программы",

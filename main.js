@@ -528,6 +528,42 @@ function initHomeegramStates(homeegram) {
         }
     });
 
+    const nodeIdPlaying = nodeIdBase + '.playing';
+    adapter.getObject(nodeIdPlaying, (err, obj) => {
+        if (!err && obj) {
+            adapter.extendObject(nodeIdPlaying, {
+                type: 'state',
+                common: {
+                    name: 'playing',
+                    role: 'indicator',
+                    type: 'boolean',
+                    read: true,
+                    write: false
+                },
+                native: {
+                    id: homeegram.id,
+                    name: homeegram_name
+                }
+            }, () => adapter.setState(nodeIdPlaying, homeegram.play === 1, true));
+        }
+        else {
+            adapter.setObject(nodeIdPlaying, {
+                type: 'state',
+                common: {
+                    name: 'playing',
+                    role: 'indicator',
+                    type: 'boolean',
+                    read: true,
+                    write: false
+                },
+                native: {
+                    id: homeegram.id,
+                    name: homeegram_name
+                }
+            }, () => adapter.setState(nodeIdPlaying, homeegram.play === 1, true));
+        }
+    });
+
 }
 
 function processMessage(msg) {

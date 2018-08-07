@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "homee",
-        "version": "0.3.1",
+        "version": "0.3.2",
         "news": {
+            "0.3.2": {
+                "en": "corrected automatic role determination and added playing state for homeegrams",
+                "de": "Die automatische Rollenermittlung wurde korrigiert und der Spielstatus für Homögramme wurde hinzugefügt",
+                "ru": "исправленное автоматическое определение роли и добавленное игровое состояние для домашних",
+                "pt": "determinação automática de função corrigida e estado de reprodução adicionado para homeegramas",
+                "nl": "gecorrigeerde automatische rolbepaling en toegevoegde afspeelstatus voor thuisegrammen",
+                "fr": "correction automatique du rôle et ajout d'un état de jeu pour les homégrammes",
+                "it": "corretta determinazione automatica del ruolo e stato di gioco aggiunto per gli homeegram",
+                "es": "determinación automática de roles corregida y estado de juego agregado para homeegramas",
+                "pl": "poprawiono automatyczne ustalanie roli i dodano stan odtwarzania dla homeegramów"
+            },
             "0.3.1": {
                 "en": "handling for RGB units, allow enabling/disabling of homeegramms",
                 "de": "Handhabung für RGB-Einheiten, ermöglichen aktivieren / deaktivieren von Homegramms",

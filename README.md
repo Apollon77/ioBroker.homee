@@ -18,7 +18,10 @@ This adapter is based on the outstanding work of [stfnhmplr](http://twitter.com/
 
 ## Changelog
 
-### 0.3.0 (2018.07.27)
+### 0.3.2 (2018.08.07)
+* (Apollon77) corrected automatic role determination and added playing state for homeegrams
+
+### 0.3.1 (2018.07.27)
 * (Apollon77) Special handling for RGB values (delete objects and restart adapter)
 * (Apollon77) Also allow enabling/disabling of Homeegrams (best delete objects unter Homee-0.Homeegrams!)
 * (Apollon77) Optimize some roles, more Role feedback via Github issues please!

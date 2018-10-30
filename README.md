@@ -1,5 +1,8 @@
 ![Logo](admin/homee.png)
 # ioBroker homee Adapter
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Apollon77/ioBroker.homee.svg)](https://greenkeeper.io/)
+
 =================
 
 ## Description

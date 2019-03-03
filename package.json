@@ -1,44 +1,45 @@
 {
-    "version": "0.3.2",
-    "name": "iobroker.homee",
-    "author": {
-        "name": "Apollon77",
-        "email": "ingo@fischer-ka.de"
-    },
-    "bugs": {
-        "url": "https://github.com/Apollon77/ioBroker.homee/issues"
-    },
-    "contributors": [
-        {
-            "name": "Apollon77",
-            "email": "ingo@fischer-ka.de"
-        }
-    ],
-    "dependencies": {
-        "homee-api": "^0.9.8"
-    },
-    "description": "homee adapter for ioBroker",
-    "devDependencies": {
-        "chai": "^4.1.2",
-        "gulp": "^4.0.0",
-        "mocha": "^5.2.0"
-    },
-    "optionalDependencies": {},
-    "homepage": "https://github.com/Apollon77/ioBroker.homee",
-    "keywords": [
-        "ioBroker",
-        "Homee",
-        "Smart Home",
-        "home automation"
-    ],
-    "license": "MIT",
-    "main": "main.js",
-    "readmeFilename": "README.md",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Apollon77/ioBroker.homee.git"
-    },
-    "scripts": {
-        "test": "node node_modules/mocha/bin/mocha --exit"
+  "version": "0.3.2",
+  "name": "iobroker.homee",
+  "author": {
+    "name": "Apollon77",
+    "email": "ingo@fischer-ka.de"
+  },
+  "bugs": {
+    "url": "https://github.com/Apollon77/ioBroker.homee/issues"
+  },
+  "contributors": [
+    {
+      "name": "Apollon77",
+      "email": "ingo@fischer-ka.de"
     }
+  ],
+  "dependencies": {
+    "homee-api": "^0.9.8"
+  },
+  "description": "homee adapter for ioBroker",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "gulp": "^4.0.0",
+    "mocha": "^6.0.2",
+    "@iobroker/adapter-core": "^1.0.3"
+  },
+  "optionalDependencies": {},
+  "homepage": "https://github.com/Apollon77/ioBroker.homee",
+  "keywords": [
+    "ioBroker",
+    "Homee",
+    "Smart Home",
+    "home automation"
+  ],
+  "license": "MIT",
+  "main": "main.js",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Apollon77/ioBroker.homee.git"
+  },
+  "scripts": {
+    "test": "node node_modules/mocha/bin/mocha --exit"
+  }
 }

@@ -1,6 +1,6 @@
 ![Logo](admin/homee.png)
 # ioBroker homee Adapter
-
+![Number of Installations](http://iobroker.live/badges/homee-installed.svg) ![Number of Installations](http://iobroker.live/badges/homee-stable.svg) 
 [![Greenkeeper badge](https://badges.greenkeeper.io/Apollon77/ioBroker.homee.svg)](https://greenkeeper.io/)
 
 =================

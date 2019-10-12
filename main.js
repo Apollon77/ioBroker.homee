@@ -105,11 +105,11 @@ adapter.on('stateChange', (id, state) => {
         return;
     }
 	
-	if (idParts[0] === 'Homee-0' && idParts[1] === 'HomeeMode-1') {
-		adapter.log.debug('stateChange ' + id + ' --> ' + idParts[1] + ':' + JSON.stringify(state));
-		homee.setValue(-1, 1, state.val);
-		return;
-	}
+	//if (idParts[0] === 'Homee-0' && idParts[1] === 'HomeeMode-1') {
+	//	adapter.log.debug('stateChange ' + id + ' --> ' + idParts[1] + ':' + JSON.stringify(state));
+	//	homee.setValue(-1, 1, state.val);
+	//	return;
+	//}
 
     let nodeId = parseInt(idParts[0].split('-')[1], 10);
     if (nodeId === 0) nodeId = -1;
@@ -204,7 +204,8 @@ function updateState(node_id, node_name, attribute, node_history) {
     }
     const realId = node_id + '.' + common.id;
     delete common.id;
-    const nodeId = parseInt(node_id.split('-')[1], 10);
+    let nodeId = parseInt(node_id.split('-')[1], 10);
+	if (nodeId === 0) nodeId = -1;
     const id = nodeId + '.' + attribute.id;
     adapter.log.debug('store lookup ' + id + ' for ' + realId);
     attributeMap[id] = {type: common.type, unit: common.unit, role: common.role, id: realId};

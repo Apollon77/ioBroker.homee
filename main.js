@@ -108,6 +108,7 @@ adapter.on('stateChange', (id, state) => {
 	if (idParts[0] === 'Homee-0' && idParts[1] === 'HomeeMode-1') {
 		adapter.log.debug('stateChange ' + id + ' --> ' + idParts[1] + ':' + JSON.stringify(state));
 		homee.setValue(-1, 1, state.val);
+		return;
 	}
 
     let nodeId = parseInt(idParts[0].split('-')[1], 10);

@@ -1,5 +1,5 @@
 {
-  "version": "0.3.2",
+  "version": "0.3.3",
   "name": "iobroker.homee",
   "author": {
     "name": "Apollon77",
@@ -15,7 +15,7 @@
     }
   ],
   "dependencies": {
-    "homee-api": "^0.9.8",
+    "homee-api": "^0.12.0",
     "@iobroker/adapter-core": "^1.0.3"
   },
   "description": "homee adapter for ioBroker",

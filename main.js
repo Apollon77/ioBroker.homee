@@ -104,14 +104,8 @@ adapter.on('stateChange', (id, state) => {
         }
         return;
     }
-<<<<<<< HEAD
 	
     let nodeId = parseInt(idParts[0].split('-')[1], 10);    
-=======
-
-    let nodeId = parseInt(idParts[0].split('-')[1], 10);
-    if (nodeId === 0) nodeId = -1;
->>>>>>> parent of 7348811... Update main.js
     const attributeId = parseInt(idParts[1].split('-')[1], 10);
     const lookupId =  nodeId + '.' + attributeId;
 	if (nodeId === 0) nodeId = -1;

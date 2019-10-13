@@ -566,6 +566,12 @@ function initHomeegramStates(homeegram) {
 
 }
 
+
+function initGroups(groups) {
+	adapter.log.debug('Trying to init groups..');
+}
+
+
 function processMessage(msg) {
     if (msg.command === 'getHistory') {
         getHistory(msg);
@@ -766,7 +772,7 @@ function main() {
             adapter.log.debug('USER: ' + JSON.stringify(user));
         });*/
         homee.on('attribute', (attribute) => {
-            adapter.log.silly('ATTRIBUTE: ' + JSON.stringify(attribute));
+            adapter.log.silly('ATTRIBUTE: ' + JSON.stringify(attribute.id));
             setStateFromHomee(attribute.node_id, attribute.id, attribute);
         });
 
@@ -779,6 +785,8 @@ function main() {
         homee.on('homeegram', (homeegram) => initHomeegrams([homeegram]));
 
         homee.on('homeegrams', (homeegrams) => initHomeegrams(homeegrams));
+		
+		homee.on('groups', (groups) => initGroups(groups));
         // ...tbc
 
         homee.connect().then(() => {

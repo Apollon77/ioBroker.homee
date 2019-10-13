@@ -380,8 +380,7 @@ adapter.on('ready', () => {
 }*/
 
 function initNodes(nodes) {
-    adapter.log.info('initialize ' + nodes.length + ' nodes');
-    adapter.log.silly('Received NODES: ' + JSON.stringify(nodes));
+    adapter.log.info('initialize ' + nodes.length + ' nodes');    
     for (let i = 0; i < nodes.length; i++) {
         initNode(nodes[i]);
     }
@@ -566,12 +565,6 @@ function initHomeegramStates(homeegram) {
 
 }
 
-
-function initGroups(groups) {
-	adapter.log.debug('Trying to init groups..');
-}
-
-
 function processMessage(msg) {
     if (msg.command === 'getHistory') {
         getHistory(msg);
@@ -743,10 +736,8 @@ function main() {
         adapter.log.info('Init homee ' + adapter.config.host + ' for user ' + adapter.config.user);
         homee = new Homee(adapter.config.host, adapter.config.user, adapter.config.password, options);
 
-        mapper = require('./lib/mapper')(homee.enums);
+        mapper = require('./lib/mapper')(homee.enums);		
 
-        // available events
-        //homee.on('message', (message) => adapter.log.silly('MESSAGE: ' + JSON.stringify(message)));
 
         homee.on('connected', () => {
             adapter.log.info('CONNECTED');
@@ -770,13 +761,20 @@ function main() {
         // special events
         /*homee.on('user', (user) => {
             adapter.log.debug('USER: ' + JSON.stringify(user));
-        });*/
+        });*/		
+		
+		
         homee.on('attribute', (attribute) => {
-            adapter.log.silly('ATTRIBUTE: ' + JSON.stringify(attribute.id));
+            adapter.log.silly('ATTRIBUTE: ' + JSON.stringify(attribute.node_id) + '.' + JSON.stringify(attribute.id));
             setStateFromHomee(attribute.node_id, attribute.id, attribute);
         });
 
-        homee.on('nodes', (nodes) => initNodes(nodes));
+		homee.on('all', (all) => {
+			initNodes(all.nodes);
+			initHomeegrams(all.homeegrams);
+		});			
+
+        homee.on('nodes', (nodes) => initNodes(nodes));		
 
         homee.on('node', (node) => initNodes([node]));
 
@@ -785,9 +783,7 @@ function main() {
         homee.on('homeegram', (homeegram) => initHomeegrams([homeegram]));
 
         homee.on('homeegrams', (homeegrams) => initHomeegrams(homeegrams));
-		
-		homee.on('groups', (groups) => initGroups(groups));
-        // ...tbc
+
 
         homee.connect().then(() => {
             adapter.log.debug('Connection done');

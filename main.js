@@ -769,10 +769,7 @@ function main() {
             setStateFromHomee(attribute.node_id, attribute.id, attribute);
         });
 
-		homee.on('all', (all) => {
-			initNodes(all.nodes);
-			initHomeegrams(all.homeegrams);
-		});			
+		homee.on('all', (all) => initNodes(all.nodes));
 
         homee.on('nodes', (nodes) => initNodes(nodes));		
 

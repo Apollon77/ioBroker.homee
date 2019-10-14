@@ -21,6 +21,12 @@ This adapter is based on the outstanding work of [stfnhmplr](http://twitter.com/
 
 ## Changelog
 
+### 0.4.0 (2019.10.14)
+* (Seraphis411) fixed writing of HomeeMode
+* (Seraphis411) bumped version of homee-api to 0.12.0 (no new features adopted)
+* (Seraphis411) now support for nodejs 10 thanks to newer ws-library (^7.1.2) in homee-api
+
+
 ### 0.3.2 (2018.08.07)
 * (Apollon77) corrected automatic role determination and added playing state for homeegrams
 

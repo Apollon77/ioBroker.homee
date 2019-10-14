@@ -417,13 +417,9 @@ function initHomeegram(homeegram) {
     adapter.getObject(nodeId, (err, obj) => {
         if (!err && obj) {
             adapter.extendObject(nodeId, {
-                type: 'state',
+                type: 'device',
                 common: {
-                    name: homeegram_name,
-                    role: 'button',
-                    type: 'boolean',
-                    read: false,
-                    write: !!homeegram.triggers.switch_trigger
+                    name: homeegram_name
                 },
                 native: {
                     id: homeegram.id,
@@ -433,13 +429,9 @@ function initHomeegram(homeegram) {
         }
         else {
             adapter.setObject(nodeId, {
-                type: 'state',
+                type: 'device',
                 common: {
-                    name: homeegram_name,
-                    role: 'button',
-                    type: 'boolean',
-                    read: false,
-                    write: !!homeegram.triggers.switch_trigger
+					name: homeegram_name
                 },
                 native: {
                     id: homeegram.id,

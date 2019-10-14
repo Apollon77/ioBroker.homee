@@ -12,11 +12,15 @@ This adapter connects ioBroker to homee and provides the following features:
 * allow changing values in ioBroker and send them back to homee to control devices
 * acts as a ioBroker History provider for all states devices where history is enabled in homee. This means you can use the history values stored in homee to display in ioBroker using flot, Admin or also JavaScript including all aggregations on data level as known from e.g. History adapter
 
+not (yet) supported:
+* groups, because they don't offer any functions like a group-level-state or real writing to all devices at once in homee
+* heating-plans
+
 This adapter is based on the outstanding work of [stfnhmplr](http://twitter.com/stfnhmplr) and his [homee-api](https://github.com/stfnhmplr/homee-api).
+
 
 ## Known issues
 * On js-controller <1.5.0 it can have strange effects when enabling other history providers on some of the roles (e.g. "switch")
-* nodejs 10 NOT WORKING because of too old Websocket Library in Homee-API-Library
 
 
 ## Changelog
@@ -25,7 +29,6 @@ This adapter is based on the outstanding work of [stfnhmplr](http://twitter.com/
 * (Seraphis411) fixed writing of HomeeMode
 * (Seraphis411) bumped version of homee-api to 0.12.0 (no new features adopted)
 * (Seraphis411) now support for nodejs 10 thanks to newer ws-library (^7.1.2) in homee-api
-
 
 ### 0.3.2 (2018.08.07)
 * (Apollon77) corrected automatic role determination and added playing state for homeegrams
@@ -40,6 +43,7 @@ This adapter is based on the outstanding work of [stfnhmplr](http://twitter.com/
 
 ### 0.1.1 (2018.07.04)
 * (Apollon77) initial version
+
 
 ## License
 The MIT License (MIT)

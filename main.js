@@ -108,7 +108,7 @@ adapter.on('stateChange', (id, state) => {
     let nodeId = parseInt(idParts[0].split('-')[1], 10);    
     const attributeId = parseInt(idParts[1].split('-')[1], 10);
     const lookupId =  nodeId + '.' + attributeId;
-	if (nodeId === 0) nodeId = -1;
+    if (nodeId === 0) nodeId = -1;
     adapter.log.debug('stateChange ' + id + ' --> ' + lookupId + ':' + JSON.stringify(state));
 
     let value = state.val;

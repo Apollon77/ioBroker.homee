@@ -381,6 +381,7 @@ adapter.on('ready', () => {
 
 function initNodes(nodes) {
     adapter.log.info('initialize ' + nodes.length + ' nodes');    
+	adapter.log.silly('Received NODES: ' + JSON.stringify(nodes));
     for (let i = 0; i < nodes.length; i++) {
         initNode(nodes[i]);
     }

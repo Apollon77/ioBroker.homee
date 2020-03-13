@@ -69,7 +69,7 @@ function setupServer(port, callback) {
                 const nodes = fs.readFileSync(__dirname + "/nodes.json");
                 ws.send(JSON.stringify({
                     all: {
-                        nodes: nodes.nodes
+                        nodes: JSON.parse(nodes).nodes
                     }
                 }));
                 console.log('sending content of nodes.json as all');

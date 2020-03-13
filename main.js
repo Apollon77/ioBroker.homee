@@ -130,11 +130,9 @@ function initSentry(callback) {
 function startAdapter(options) {
     options = options || {};
     Object.assign(options, {
-        name: 'smartmeter'
+        name: 'homee'
     });
     adapter = new utils.Adapter(options);
-
-
 
     adapter.on('unload', callback => {
         try {

@@ -1,9 +1,9 @@
 {
     "common": {
         "name": "homee",
-        "version": "0.5.0",
+        "version": "1.0.0",
         "news": {
-            "0.5.0": {
+            "1.0.0": {
                 "en": "update homee api, add sentry for error tracking",
                 "de": "Aktualisiere die Homee-API und füge einen Wachposten für die Fehlerverfolgung hinzu",
                 "ru": "обновить homee api, добавить часового для отслеживания ошибок",

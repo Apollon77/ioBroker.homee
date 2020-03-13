@@ -536,7 +536,7 @@ function initHomeegram(homeegram) {
     adapter.getObject(nodeId, (err, obj) => {
         if (!err && obj) {
             adapter.extendObject(nodeId, {
-                type: 'state', // backward compatibility
+                type: 'channel',
                 common: {
                     name: homeegram_name
                 },
@@ -548,7 +548,7 @@ function initHomeegram(homeegram) {
         }
         else {
             adapter.setObject(nodeId, {
-                type: 'state', // backward compatibility
+                type: 'channel',
                 common: {
 					name: homeegram_name
                 },

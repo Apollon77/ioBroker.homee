@@ -104,11 +104,11 @@ adapter.on('stateChange', (id, state) => {
         }
         return;
     }
-
-    let nodeId = parseInt(idParts[0].split('-')[1], 10);
-    if (nodeId === 0) nodeId = -1;
+	
+    let nodeId = parseInt(idParts[0].split('-')[1], 10);    
     const attributeId = parseInt(idParts[1].split('-')[1], 10);
-    const lookupId = nodeId + '.' + attributeId;
+    const lookupId =  nodeId + '.' + attributeId;
+    if (nodeId === 0) nodeId = -1;
     adapter.log.debug('stateChange ' + id + ' --> ' + lookupId + ':' + JSON.stringify(state));
 
     let value = state.val;
@@ -380,7 +380,7 @@ adapter.on('ready', () => {
 }*/
 
 function initNodes(nodes) {
-    adapter.log.info('initialize ' + nodes.length + ' nodes');
+    adapter.log.info('initialize ' + nodes.length + ' nodes');    
     adapter.log.silly('Received NODES: ' + JSON.stringify(nodes));
     for (let i = 0; i < nodes.length; i++) {
         initNode(nodes[i]);
@@ -418,13 +418,9 @@ function initHomeegram(homeegram) {
     adapter.getObject(nodeId, (err, obj) => {
         if (!err && obj) {
             adapter.extendObject(nodeId, {
-                type: 'state',
+                type: 'device',
                 common: {
-                    name: homeegram_name,
-                    role: 'button',
-                    type: 'boolean',
-                    read: false,
-                    write: !!homeegram.triggers.switch_trigger
+                    name: homeegram_name
                 },
                 native: {
                     id: homeegram.id,
@@ -434,13 +430,9 @@ function initHomeegram(homeegram) {
         }
         else {
             adapter.setObject(nodeId, {
-                type: 'state',
+                type: 'device',
                 common: {
-                    name: homeegram_name,
-                    role: 'button',
-                    type: 'boolean',
-                    read: false,
-                    write: !!homeegram.triggers.switch_trigger
+					name: homeegram_name
                 },
                 native: {
                     id: homeegram.id,
@@ -737,10 +729,8 @@ function main() {
         adapter.log.info('Init homee ' + adapter.config.host + ' for user ' + adapter.config.user);
         homee = new Homee(adapter.config.host, adapter.config.user, adapter.config.password, options);
 
-        mapper = require('./lib/mapper')(homee.enums);
+        mapper = require('./lib/mapper')(homee.enums);		
 
-        // available events
-        //homee.on('message', (message) => adapter.log.silly('MESSAGE: ' + JSON.stringify(message)));
 
         homee.on('connected', () => {
             adapter.log.info('CONNECTED');
@@ -764,13 +754,17 @@ function main() {
         // special events
         /*homee.on('user', (user) => {
             adapter.log.debug('USER: ' + JSON.stringify(user));
-        });*/
+        });*/		
+		
+		
         homee.on('attribute', (attribute) => {
-            adapter.log.silly('ATTRIBUTE: ' + JSON.stringify(attribute));
+            adapter.log.silly('ATTRIBUTE: ' + JSON.stringify(attribute.node_id) + '.' + JSON.stringify(attribute.id));
             setStateFromHomee(attribute.node_id, attribute.id, attribute);
         });
 
-        homee.on('nodes', (nodes) => initNodes(nodes));
+	homee.on('all', (all) => initNodes(all.nodes));
+
+        homee.on('nodes', (nodes) => initNodes(nodes));		
 
         homee.on('node', (node) => initNodes([node]));
 
@@ -779,7 +773,7 @@ function main() {
         homee.on('homeegram', (homeegram) => initHomeegrams([homeegram]));
 
         homee.on('homeegrams', (homeegrams) => initHomeegrams(homeegrams));
-        // ...tbc
+
 
         homee.connect().then(() => {
             adapter.log.debug('Connection done');

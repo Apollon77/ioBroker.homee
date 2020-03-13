@@ -60,13 +60,15 @@ function setupServer(port, callback) {
         ws.on('message', function incoming(message) {
             console.log('WS received: %s', message);
             lastWSRequest = message;
-            if (message === 'GET:nodes') {
+            /*if (message === 'GET:nodes') {
                 const nodes = fs.readFileSync(__dirname + "/nodes.json");
                 ws.send(nodes);
                 console.log('sending content of nodes.json');
             }
-            else if (message === 'GET:all') {
+            else*/ if (message === 'GET:all') {
+                console.log ('READ DATA ...');
                 const nodes = fs.readFileSync(__dirname + "/nodes.json");
+                console.log ('GOT DATA ... sending');
                 ws.send({
                     all: {
                         nodes: nodes.nodes

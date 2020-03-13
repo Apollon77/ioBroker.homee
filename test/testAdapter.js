@@ -65,6 +65,11 @@ function setupServer(port, callback) {
                 ws.send(nodes);
                 console.log('sending content of nodes.json');
             }
+            else if (message === 'GET:all') {
+                const nodes = fs.readFileSync(__dirname + "/nodes.json");
+                ws.send({nodes});
+                console.log('sending content of nodes.json as all');
+            }
             else if (message === 'GET:homeegrams') {
                 const homeegrams = fs.readFileSync(__dirname + "/homeegrams.json");
                 ws.send(homeegrams);

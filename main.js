@@ -9,14 +9,15 @@
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils
 const Aggregate  = require(__dirname + '/lib/aggregate.js');
 
-const adapter = new utils.Adapter('homee');
 const Homee = require('homee-api');
 let homee;
 let mapper;
 
+let adapter;
+
 let initDone = false;
 let stopIt = false;
-const forbiddenCharacters = /[\]\[*,;'"`<>\\\s?]/g;
+//const forbiddenCharacters = /[\]\[*,;'"`<>\\\s?]/g;
 const attributeMap = {};
 const historyQueue = {};
 
@@ -28,18 +29,198 @@ function decrypt(key, value) {
     return result;
 }
 
-adapter.on('unload', callback => {
-    try {
-        adapter.log.info('cleaned everything up...');
-        if (!stopIt) {
-            stopIt = true;
-            homee.disconnect();
-        }
-        callback();
-    } catch (e) {
-        callback();
+let Sentry;
+let SentryIntegrations;
+function initSentry(callback) {
+    if (!adapter.ioPack.common || !adapter.ioPack.common.plugins || !adapter.ioPack.common.plugins.sentry) {
+        return callback && callback();
     }
-});
+    const sentryConfig = adapter.ioPack.common.plugins.sentry;
+    if (!sentryConfig.dsn) {
+        adapter.log.warn('Invalid Sentry definition, no dsn provided. Disable error reporting');
+        return callback && callback();
+    }
+    // Require needed tooling
+    Sentry = require('@sentry/node');
+    SentryIntegrations = require('@sentry/integrations');
+    // By installing source map support, we get the original source
+    // locations in error messages
+    require('source-map-support').install();
+
+    let sentryPathWhitelist = [];
+    if (sentryConfig.pathWhitelist && Array.isArray(sentryConfig.pathWhitelist)) {
+        sentryPathWhitelist = sentryConfig.pathWhitelist;
+    }
+    if (adapter.pack.name && !sentryPathWhitelist.includes(adapter.pack.name)) {
+        sentryPathWhitelist.push(adapter.pack.name);
+    }
+    let sentryErrorBlacklist = [];
+    if (sentryConfig.errorBlacklist && Array.isArray(sentryConfig.errorBlacklist)) {
+        sentryErrorBlacklist = sentryConfig.errorBlacklist;
+    }
+    if (!sentryErrorBlacklist.includes('SyntaxError')) {
+        sentryErrorBlacklist.push('SyntaxError');
+    }
+
+    Sentry.init({
+        release: adapter.pack.name + '@' + adapter.pack.version,
+        dsn: sentryConfig.dsn,
+        integrations: [
+            new SentryIntegrations.Dedupe()
+        ]
+    });
+    Sentry.configureScope(scope => {
+        scope.setTag('version', adapter.common.installedVersion || adapter.common.version);
+        if (adapter.common.installedFrom) {
+            scope.setTag('installedFrom', adapter.common.installedFrom);
+        }
+        else {
+            scope.setTag('installedFrom', adapter.common.installedVersion || adapter.common.version);
+        }
+        scope.addEventProcessor(function(event, hint) {
+            // Try to filter out some events
+            if (event && event.metadata) {
+                if (event.metadata.function && event.metadata.function.startsWith('Module.')) {
+                    return null;
+                }
+                if (event.metadata.type && sentryErrorBlacklist.includes(event.metadata.type)) {
+                    return null;
+                }
+                if (event.metadata.filename && !sentryPathWhitelist.find(path => path && path.length && event.metadata.filename.includes(path))) {
+                    return null;
+                }
+                if (event.exception && event.exception.values && event.exception.values[0] && event.exception.values[0].stacktrace && event.exception.values[0].stacktrace.frames) {
+                    for (let i = 0; i < (event.exception.values[0].stacktrace.frames.length > 5 ? 5 : event.exception.values[0].stacktrace.frames.length); i++) {
+                        let foundWhitelisted = false;
+                        if (event.exception.values[0].stacktrace.frames[i].filename && sentryPathWhitelist.find(path => path && path.length && event.exception.values[0].stacktrace.frames[i].filename.includes(path))) {
+                            foundWhitelisted = true;
+                            break;
+                        }
+                        if (!foundWhitelisted) {
+                            return null;
+                        }
+                    }
+                }
+            }
+
+            return event;
+        });
+
+        adapter.getForeignObject('system.config', (err, obj) => {
+            if (obj && obj.common && obj.common.diag) {
+                adapter.getForeignObject('system.meta.uuid', (err, obj) => {
+                    // create uuid
+                    if (!err  && obj) {
+                        Sentry.configureScope(scope => {
+                            scope.setUser({
+                                id: obj.native.uuid
+                            });
+                        });
+                    }
+                    callback && callback();
+                });
+            }
+            else {
+                callback && callback();
+            }
+        });
+    });
+}
+
+function startAdapter(options) {
+    options = options || {};
+    Object.assign(options, {
+        name: 'smartmeter'
+    });
+    adapter = new utils.Adapter(options);
+
+
+
+    adapter.on('unload', callback => {
+        try {
+            adapter.log.info('cleaned everything up...');
+            if (!stopIt) {
+                stopIt = true;
+                homee.disconnect();
+            }
+            callback();
+        } catch (e) {
+            callback();
+        }
+    });
+
+    adapter.on('message', function (msg) {
+        processMessage(msg);
+    });
+
+    adapter.on('stateChange', (id, state) => {
+        if (!state || state.ack) return;
+
+        id = id.substr(adapter.namespace.length + 1);
+        const idParts = id.split('.');
+
+        if (idParts[0] === 'Homee-0' && idParts[1] === 'Homeegrams') {
+            if (idParts[3] === 'play') {
+                adapter.log.debug('stateChange ' + id + ' --> ' + idParts[2] + ' play :' + JSON.stringify(state));
+                //homee.send('PUT:homeegrams/' + idParts[2] + '?play=1');
+                homee.play(idParts[2]);
+            }
+            else if (idParts[3] === 'active') {
+                adapter.log.debug('stateChange ' + id + ' --> ' + idParts[2] + ' active:' + JSON.stringify(state));
+                //homee.send('PUT:homeegrams/' + idParts[2] + '?active=' + (state.val ? 1 : 0));
+                if (state.val) {
+                    homee.activateHomeegram(idParts[2]);
+                }
+                else {
+                    homee.deactivateHomeegram(idParts[2]);
+                }
+            }
+            return;
+        }
+
+        let nodeId = parseInt(idParts[0].split('-')[1], 10);
+        const attributeId = parseInt(idParts[1].split('-')[1], 10);
+        const lookupId =  nodeId + '.' + attributeId;
+        if (nodeId === 0) nodeId = -1;
+        adapter.log.debug('stateChange ' + id + ' --> ' + lookupId + ':' + JSON.stringify(state));
+
+        let value = state.val;
+        if (attributeMap[lookupId].type === 'boolean') {
+            value = value ? 1 : 0;
+        }
+        else if (attributeMap[lookupId].type === 'string' && attributeMap[lookupId].unit === 'RGB' && typeof state.val === 'string') {
+            var val = state.val;
+            if (val.substr(0,1) === '#') val = val.substr(1);
+            value = hexToNumberColor(val);
+        }
+        else if (attributeMap[lookupId] === 'string') {
+            adapter.log.warn('Tell this to the Developer!! Type string not supported to set data: ' + id + ', data=' + value);
+            return;
+        }
+        homee.setValue(nodeId, attributeId, value);
+    });
+
+    adapter.on('ready', () => {
+        adapter.getForeignObject('system.config', (err, obj) => {
+            if (obj && obj.native && obj.native.secret) {
+                //noinspection JSUnresolvedVariable
+                adapter.config.password = decrypt(obj.native.secret, adapter.config.password);
+            } else {
+                //noinspection JSUnresolvedVariable
+                adapter.config.password = decrypt('Zgfr56gFe87jJOM', adapter.config.password);
+            }
+
+            if (adapter.supportsFeature && adapter.supportsFeature('PLUGINS')) {
+                main();
+            }
+            else {
+                initSentry(main);
+            }
+        });
+    });
+
+    return adapter;
+}
 
 process.on('SIGINT', () => {
     if (!stopIt) {
@@ -65,9 +246,6 @@ process.on('uncaughtException', err => {
     }
 });
 
-adapter.on('message', function (msg) {
-    processMessage(msg);
-});
 
 function numberColorToHex(i) {
     var rrggbb =  ("000000" + i.toString(16)).slice(-6);
@@ -80,52 +258,6 @@ function hexToNumberColor(rrggbb) {
     return parseInt(rrggbb, 16);
 }
 
-adapter.on('stateChange', (id, state) => {
-    if (!state || state.ack) return;
-
-    id = id.substr(adapter.namespace.length + 1);
-    const idParts = id.split('.');
-
-    if (idParts[0] === 'Homee-0' && idParts[1] === 'Homeegrams') {
-        if (idParts[3] === 'play') {
-            adapter.log.debug('stateChange ' + id + ' --> ' + idParts[2] + ' play :' + JSON.stringify(state));
-            //homee.send('PUT:homeegrams/' + idParts[2] + '?play=1');
-            homee.play(idParts[2]);
-        }
-        else if (idParts[3] === 'active') {
-            adapter.log.debug('stateChange ' + id + ' --> ' + idParts[2] + ' active:' + JSON.stringify(state));
-            //homee.send('PUT:homeegrams/' + idParts[2] + '?active=' + (state.val ? 1 : 0));
-            if (state.val) {
-                homee.activateHomeegram(idParts[2]);
-            }
-            else {
-                homee.deactivateHomeegram(idParts[2]);
-            }
-        }
-        return;
-    }
-	
-    let nodeId = parseInt(idParts[0].split('-')[1], 10);    
-    const attributeId = parseInt(idParts[1].split('-')[1], 10);
-    const lookupId =  nodeId + '.' + attributeId;
-    if (nodeId === 0) nodeId = -1;
-    adapter.log.debug('stateChange ' + id + ' --> ' + lookupId + ':' + JSON.stringify(state));
-
-    let value = state.val;
-    if (attributeMap[lookupId].type === 'boolean') {
-        value = value ? 1 : 0;
-    }
-    else if (attributeMap[lookupId].type === 'string' && attributeMap[lookupId].unit === 'RGB' && typeof state.val === 'string') {
-        var val = state.val;
-        if (val.substr(0,1) === '#') val = val.substr(1);
-        value = hexToNumberColor(val);
-    }
-    else if (attributeMap[lookupId] === 'string') {
-        adapter.log.warn('Tell this to the Developer!! Type string not supported to set data: ' + id + ', data=' + value);
-        return;
-    }
-    homee.setValue(nodeId, attributeId, value);
-});
 
 function updateDev(node) {
     const nodeId = mapper.getNodeName(node);
@@ -350,18 +482,6 @@ function setStateFromHomee(node_id, attribute_id, attribute, initial) {
     }
 }
 
-adapter.on('ready', () => {
-    adapter.getForeignObject('system.config', (err, obj) => {
-        if (obj && obj.native && obj.native.secret) {
-            //noinspection JSUnresolvedVariable
-            adapter.config.password = decrypt(obj.native.secret, adapter.config.password);
-        } else {
-            //noinspection JSUnresolvedVariable
-            adapter.config.password = decrypt('Zgfr56gFe87jJOM', adapter.config.password);
-        }
-        main();
-    });
-});
 
 /*function loadExistingAccessories(callback) {
     adapter.getDevices((err, res) => {
@@ -418,7 +538,7 @@ function initHomeegram(homeegram) {
     adapter.getObject(nodeId, (err, obj) => {
         if (!err && obj) {
             adapter.extendObject(nodeId, {
-                type: 'device',
+                type: 'state', // backward compatibility
                 common: {
                     name: homeegram_name
                 },
@@ -430,7 +550,7 @@ function initHomeegram(homeegram) {
         }
         else {
             adapter.setObject(nodeId, {
-                type: 'device',
+                type: 'state', // backward compatibility
                 common: {
 					name: homeegram_name
                 },
@@ -602,7 +722,7 @@ function parseHistorySeries(serie, results) {
     if (! results) {
         results = [];
     }
-    adapter.log.silly('SERIE:' + JSON.stringify(serie));
+    adapter.log.silly('SERIES:' + JSON.stringify(serie));
     if (serie.error || !serie.columns || !serie.values) {
         adapter.log.info('No data in history response: ' + JSON.stringify(serie));
         return results;
@@ -715,7 +835,7 @@ function getHistory(msg) {
 
 function main() {
     if (adapter.config.host === "") {
-        adapter.log.error('You need to configure the adapter properly.');
+        adapter.log.error('Homee Host is missing. Please configure the adapter properly.');
         return;
     }
 
@@ -762,7 +882,7 @@ function main() {
             setStateFromHomee(attribute.node_id, attribute.id, attribute);
         });
 
-	homee.on('all', (all) => initNodes(all.nodes));
+	    homee.on('all', (all) => initNodes(all.nodes));
 
         homee.on('nodes', (nodes) => initNodes(nodes));		
 
@@ -781,4 +901,12 @@ function main() {
             adapter.log.error(error);
         });
     //});
+}
+
+// If started as allInOne/compact mode => return function to create instance
+if (module && module.parent) {
+    module.exports = startAdapter;
+} else {
+    // or start the instance directly
+    startAdapter();
 }

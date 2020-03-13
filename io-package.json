@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "homee",
-        "version": "0.3.2",
+        "version": "0.5.0",
         "news": {
+            "0.5.0": {
+                "en": "update homee api, add sentry for error tracking",
+                "de": "Aktualisiere die Homee-API und füge einen Wachposten für die Fehlerverfolgung hinzu",
+                "ru": "обновить homee api, добавить часового для отслеживания ошибок",
+                "pt": "atualizar homee api, adicionar sentinela para rastreamento de erros",
+                "nl": "homee api bijwerken, wachtpost toevoegen voor foutopsporing",
+                "fr": "mettre à jour l'api homee, ajouter une sentinelle pour le suivi des erreurs",
+                "it": "aggiorna api homee, aggiungi sentinella per il rilevamento degli errori",
+                "es": "actualizar la API de inicio, agregar centinela para el seguimiento de errores",
+                "pl": "zaktualizuj homee api, dodaj wartownik do śledzenia błędów",
+                "zh-cn": "更新homee api，添加哨兵以进行错误跟踪"
+            },
             "0.3.2": {
                 "en": "corrected automatic role determination and added playing state for homeegrams",
                 "de": "Die automatische Rollenermittlung wurde korrigiert und der Spielstatus für Homögramme wurde hinzugefügt",
@@ -77,7 +89,15 @@
         "keywords": ["homee"],
         "readme": "https://github.com/Apollon77/ioBroker.homee/blob/master/README.md",
         "loglevel": "info",
-        "type": "iot-systems"
+        "type": "iot-systems",
+        "compact": true,
+        "plugins": {
+            "sentry": {
+                "dsn": "https://2ca4d806cbfe4efebf647a2279339e32@sentry.iobroker.net/7",
+                "pathWhitelist": ["@apollon", "homee"],
+                "errorBlacklist": ["SyntaxError"]
+            }
+        }
     },
     "native": {
         "host": "",

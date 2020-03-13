@@ -3,7 +3,7 @@
 ![Number of Installations](http://iobroker.live/badges/homee-installed.svg) ![Number of Installations](http://iobroker.live/badges/homee-stable.svg) 
 [![Greenkeeper badge](https://badges.greenkeeper.io/Apollon77/ioBroker.homee.svg)](https://greenkeeper.io/)
 
-=================
+**This adapter uses Sentry libraries to automatically report exceptions and code errors to me as the developer.** More details see below!
 
 ## Description
 This adapter connects ioBroker to homee and provides the following features:
@@ -22,13 +22,26 @@ This adapter is based on the outstanding work of [stfnhmplr](http://twitter.com/
 ## Known issues
 * On js-controller <1.5.0 it can have strange effects when enabling other history providers on some of the roles (e.g. "switch")
 
+## How to report issues and feature requests
+
+Please use GitHub issues for this.
+
+Best is to set the adapter to Debug log mode (Instances -> Expert mode -> Column Log level). Then please get the logfile from disk (subdirectory "log" in ioBroker installation directory and not from Admin because Admin cuts the lines). If you do not like providing it in GitHub issue you can also send it to me via email (iobroker@fischer-ka.de). Please add a reference to the relevant GitHub issue AND also describe what I see in the log at which time.
+
+## What is Sentry and what is reported to the servers?
+Sentry.io is a way for developers to get an overview about errors from their applications. And exactly this is implemented in this adapter.
+
+When the adapter crashes or an other Code error happens, this error message that also appears in the ioBroker log is submitted to our own Sentry server hosted in germany. When you allowed iobroker GmbH to collect diagnostic data then also your installation ID (this is just a unique ID **without** any additional infos about you, email, name or such) is included. This allows Sentry to group errors and show how many unique users are affected by such an error. All of this helps me to provide error free adapters that basically never crashs.  
+
 
 ## Changelog
 
-### 0.4.0 (2019.10.14)
+### 0.5.0 (2020.03.13)
 * (Seraphis411) fixed writing of HomeeMode
 * (Seraphis411) bumped version of homee-api to 0.12.0 (no new features adopted)
 * (Seraphis411) now support for nodejs 10 thanks to newer ws-library (^7.1.2) in homee-api
+* (Apollon77) add sentry for error reporting
+* (Apollon77) update homee api to 0.15.0
 
 ### 0.3.2 (2018.08.07)
 * (Apollon77) corrected automatic role determination and added playing state for homeegrams
@@ -48,7 +61,7 @@ This adapter is based on the outstanding work of [stfnhmplr](http://twitter.com/
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2018 Apollon77 <ingo@fischer-ka.de>
+Copyright (c) 2018-2020 Apollon77 <iobroker@fischer-ka.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

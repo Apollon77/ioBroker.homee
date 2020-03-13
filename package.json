@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0",
+  "version": "0.5.0",
   "name": "iobroker.homee",
   "author": {
     "name": "Apollon77",
@@ -15,14 +15,17 @@
     }
   ],
   "dependencies": {
-    "homee-api": "^0.12.0",
-    "@iobroker/adapter-core": "^1.0.3"
+    "homee-api": "^0.15.0",
+    "@iobroker/adapter-core": "^2.2.1",
+    "@sentry/node": "^5.14.1",
+    "@sentry/integrations": "^5.14.1",
+    "source-map-support": "^0.5.16",
   },
   "description": "homee adapter for ioBroker",
   "devDependencies": {
-    "chai": "^4.1.2",
-    "gulp": "^4.0.0",
-    "mocha": "^6.0.2"
+    "chai": "^4.2.0",
+    "gulp": "^4.0.2",
+    "mocha": "^7.1.0"
   },
   "optionalDependencies": {},
   "homepage": "https://github.com/Apollon77/ioBroker.homee",

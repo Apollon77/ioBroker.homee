@@ -882,7 +882,7 @@ function main() {
 
 	    homee.on('all', (all) => initNodes(all.nodes));
 
-        homee.on('nodes', (nodes) => initNodes(nodes));		
+        //homee.on('nodes', (nodes) => initNodes(nodes));
 
         homee.on('node', (node) => initNodes([node]));
 

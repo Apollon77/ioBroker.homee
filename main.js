@@ -183,6 +183,12 @@ function startAdapter(options) {
         adapter.log.debug('stateChange ' + id + ' --> ' + lookupId + ':' + JSON.stringify(state));
 
         let value = state.val;
+
+        if (!attributeMap[lookupId]) {
+            adapter.log.warn('Change of an unknown state detected: ' + id + ', data=' + value);
+            return;
+        }
+
         if (attributeMap[lookupId].type === 'boolean') {
             value = value ? 1 : 0;
         }

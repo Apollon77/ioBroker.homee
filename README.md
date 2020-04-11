@@ -36,6 +36,10 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 1.0.3 (2020.04.12)
+* (Apollon77) fixes and optimizations
+* (Apollon77) use js-controller 3.0 features if available 
+
 ### 1.0.2 (2020.03.22)
 * (Apollon77) fixes and optimizations 
 

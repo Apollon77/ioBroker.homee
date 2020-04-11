@@ -79,26 +79,32 @@ function initSentry(callback) {
         }
         scope.addEventProcessor(function(event, hint) {
             // Try to filter out some events
-            if (event && event.metadata) {
-                if (event.metadata.function && event.metadata.function.startsWith('Module.')) {
+            if (event.exception && event.exception.values && event.exception.values[0]) {
+                const eventData = event.exception.values[0];
+                // if error type is one from blacklist we ignore this error
+                if (eventData.type && sentryErrorBlacklist.includes(eventData.type)) {
                     return null;
                 }
-                if (event.metadata.type && sentryErrorBlacklist.includes(event.metadata.type)) {
-                    return null;
-                }
-                if (event.metadata.filename && !sentryPathWhitelist.find(path => path && path.length && event.metadata.filename.includes(path))) {
-                    return null;
-                }
-                if (event.exception && event.exception.values && event.exception.values[0] && event.exception.values[0].stacktrace && event.exception.values[0].stacktrace.frames) {
-                    for (let i = 0; i < (event.exception.values[0].stacktrace.frames.length > 5 ? 5 : event.exception.values[0].stacktrace.frames.length); i++) {
-                        let foundWhitelisted = false;
-                        if (event.exception.values[0].stacktrace.frames[i].filename && sentryPathWhitelist.find(path => path && path.length && event.exception.values[0].stacktrace.frames[i].filename.includes(path))) {
-                            foundWhitelisted = true;
-                            break;
+                if (eventData.stacktrace && eventData.stacktrace.frames && Array.isArray(eventData.stacktrace.frames) && eventData.stacktrace.frames.length) {
+                    // if last exception frame is from an nodejs internal method we ignore this error
+                    if (eventData.stacktrace.frames[eventData.stacktrace.frames.length - 1].filename && (eventData.stacktrace.frames[eventData.stacktrace.frames.length - 1].filename.startsWith('internal/') || eventData.stacktrace.frames[eventData.stacktrace.frames.length - 1].filename.startsWith('Module.'))) {
+                        return null;
+                    }
+                    // Check if any entry is whitelisted from pathWhitelist
+                    const whitelisted = eventData.stacktrace.frames.find(frame => {
+                        if (frame.function && frame.function.startsWith('Module.')) {
+                            return false;
                         }
-                        if (!foundWhitelisted) {
-                            return null;
+                        if (frame.filename && frame.filename.startsWith('internal/')) {
+                            return false;
                         }
+                        if (frame.filename && !sentryPathWhitelist.find(path => path && path.length && frame.filename.includes(path))) {
+                            return false;
+                        }
+                        return true;
+                    });
+                    if (!whitelisted) {
+                        return null;
                     }
                 }
             }
@@ -157,6 +163,10 @@ function startAdapter(options) {
         id = id.substr(adapter.namespace.length + 1);
         const idParts = id.split('.');
 
+        if (idParts.length < 2) {
+            adapter.log.warn('Ignore invalid state change object: ' + id);
+            return;
+        }
         if (idParts[0] === 'Homee-0' && idParts[1] === 'Homeegrams') {
             if (idParts[3] === 'play') {
                 adapter.log.debug('stateChange ' + id + ' --> ' + idParts[2] + ' play :' + JSON.stringify(state));
@@ -206,14 +216,15 @@ function startAdapter(options) {
 
     adapter.on('ready', () => {
         adapter.getForeignObject('system.config', (err, obj) => {
-            if (obj && obj.native && obj.native.secret) {
-                //noinspection JSUnresolvedVariable
-                adapter.config.password = decrypt(obj.native.secret, adapter.config.password);
-            } else {
-                //noinspection JSUnresolvedVariable
-                adapter.config.password = decrypt('Zgfr56gFe87jJOM', adapter.config.password);
+            if (!adapter.supportsFeature || !adapter.supportsFeature('ADAPTER_AUTO_DECRYPT')) {
+                if (obj && obj.native && obj.native.secret) {
+                    //noinspection JSUnresolvedVariable
+                    adapter.config.password = decrypt(obj.native.secret, adapter.config.password);
+                } else {
+                    //noinspection JSUnresolvedVariable
+                    adapter.config.password = decrypt('Zgfr56gFe87jJOM', adapter.config.password);
+                }
             }
-
             if (adapter.supportsFeature && adapter.supportsFeature('PLUGINS')) {
                 main();
             }

@@ -216,7 +216,7 @@ function startAdapter(options) {
 
     adapter.on('ready', () => {
         adapter.getForeignObject('system.config', (err, obj) => {
-            if (!adapter.supportsFeature || !adapter.supportsFeature('ADAPTER_AUTO_DECRYPT')) {
+            if (!adapter.supportsFeature || !adapter.supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE')) {
                 if (obj && obj.native && obj.native.secret) {
                     //noinspection JSUnresolvedVariable
                     adapter.config.password = decrypt(obj.native.secret, adapter.config.password);

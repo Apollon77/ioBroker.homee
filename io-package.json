@@ -127,6 +127,8 @@
         "loglevel": "info",
         "type": "iot-systems",
         "compact": true,
+        "connectionType": "local",
+        "dataSource": "push",
         "plugins": {
             "sentry": {
                 "dsn": "https://2ca4d806cbfe4efebf647a2279339e32@sentry.iobroker.net/7",

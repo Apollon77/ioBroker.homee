@@ -1,5 +1,5 @@
 {
-  "version": "1.0.4",
+  "version": "1.0.5",
   "name": "iobroker.homee",
   "author": {
     "name": "Apollon77",
@@ -15,8 +15,8 @@
     }
   ],
   "dependencies": {
-    "homee-api": "^0.15.2",
-    "@iobroker/adapter-core": "^2.2.1",
+    "homee-api": "^0.15.3",
+    "@iobroker/adapter-core": "^2.3.1",
     "@sentry/node": "^5.15.4",
     "@sentry/integrations": "^5.15.4",
     "source-map-support": "^0.5.16"

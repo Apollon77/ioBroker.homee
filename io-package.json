@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "homee",
-        "version": "1.0.5",
+        "version": "1.0.6",
         "news": {
+            "1.0.6": {
+                "en": "Fix Admin",
+                "de": "Fix Admin",
+                "ru": "Исправить админ",
+                "pt": "Fix Admin",
+                "nl": "Beheerder repareren",
+                "fr": "Fix Admin",
+                "it": "Fix Admin",
+                "es": "Fix Admin",
+                "pl": "Napraw administratora",
+                "zh-cn": "修复管理员"
+            },
             "1.0.5": {
                 "en": "optimizations and fixes",
                 "de": "Optimierungen und Korrekturen",
@@ -134,7 +146,9 @@
         "enabled": true,
         "getHistory": true,
         "extIcon": "https://raw.githubusercontent.com/Apollon77/ioBroker.homee/master/admin/homee.png",
-        "keywords": ["homee"],
+        "keywords": [
+            "homee"
+        ],
         "readme": "https://github.com/Apollon77/ioBroker.homee/blob/master/README.md",
         "loglevel": "info",
         "type": "iot-systems",
@@ -144,8 +158,13 @@
         "plugins": {
             "sentry": {
                 "dsn": "https://2ca4d806cbfe4efebf647a2279339e32@sentry.iobroker.net/7",
-                "pathWhitelist": ["@apollon", "homee"],
-                "errorBlacklist": ["SyntaxError"]
+                "pathWhitelist": [
+                    "@apollon",
+                    "homee"
+                ],
+                "errorBlacklist": [
+                    "SyntaxError"
+                ]
             }
         }
     },
@@ -160,9 +179,7 @@
         "user": "",
         "password": ""
     },
-    "objects": [
-
-    ],
+    "objects": [],
     "instanceObjects": [
         {
             "_id": "info",

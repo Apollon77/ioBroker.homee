@@ -240,14 +240,14 @@ function startAdapter(options) {
 process.on('SIGINT', () => {
     if (!stopIt) {
         stopIt = true;
-        homee.disconnect();
+        homee && homee.disconnect();
     }
 });
 
 process.on('SIGTERM', () => {
     if (!stopIt) {
         stopIt = true;
-        homee.disconnect();
+        homee && homee.disconnect();
     }
 });
 
@@ -257,7 +257,7 @@ process.on('uncaughtException', err => {
     }
     if (!stopIt) {
         stopIt = true;
-        homee.disconnect();
+        homee && homee.disconnect();
     }
 });
 

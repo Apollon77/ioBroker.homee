@@ -30,6 +30,9 @@ Best is to set the adapter to Debug log mode (Instances -> Expert mode -> Column
 
 ## Changelog
 
+### 1.0.7 (2020-06-12)
+* (Apollon77) Fix Admin finally
+
 ### 1.0.6 (2020-06-12)
 * (Apollon77) Fix Admin
 

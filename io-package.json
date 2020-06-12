@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "homee",
-        "version": "1.0.6",
+        "version": "1.0.7",
         "news": {
+            "1.0.7": {
+                "en": "Fix Admin finally",
+                "de": "Fix Admin endlich",
+                "ru": "Исправить Admin наконец",
+                "pt": "Corrigir Admin finalmente",
+                "nl": "Fix Admin eindelijk",
+                "fr": "Fix Admin enfin",
+                "it": "Risolto il problema con Admin",
+                "es": "Fix Admin finalmente",
+                "pl": "Napraw administratora w końcu",
+                "zh-cn": "最终修复管理员"
+            },
             "1.0.6": {
                 "en": "Fix Admin",
                 "de": "Fix Admin",

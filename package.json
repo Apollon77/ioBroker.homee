@@ -18,7 +18,7 @@
     "homee-api": "^0.15.4",
     "@iobroker/adapter-core": "^2.4.0",
     "@sentry/node": "^5.17.0",
-    "@sentry/integrations": "^5.17.0",
+    "@sentry/integrations": "^5.19.0",
     "source-map-support": "^0.5.19"
   },
   "description": "homee adapter for ioBroker",

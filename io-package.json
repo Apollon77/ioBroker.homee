@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "homee",
-        "version": "1.0.7",
+        "version": "1.1.0",
         "news": {
+            "1.1.0": {
+                "en": "Update to homee 2.30",
+                "de": "Update auf homee 2.30",
+                "ru": "Обновление до Homee 2.30",
+                "pt": "Atualizar para homee 2.30",
+                "nl": "Update naar homee 2.30",
+                "fr": "Mise à jour vers homee 2.30",
+                "it": "Aggiornamento a homee 2.30",
+                "es": "Actualización a homee 2.30",
+                "pl": "Zaktualizuj do wersji homee 2.30",
+                "zh-cn": "更新到homee 2.30"
+            },
             "1.0.7": {
                 "en": "Fix Admin finally",
                 "de": "Fix Admin endlich",

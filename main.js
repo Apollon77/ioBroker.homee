@@ -515,7 +515,7 @@ function setStateFromHomee(node_id, attribute_id, attribute, initial) {
 }*/
 
 function initNodes(nodes) {
-    adapter.log.info('initialize ' + nodes.length + ' nodes');    
+    adapter.log.info('initialize ' + nodes.length + ' nodes');
     adapter.log.silly('Received NODES: ' + JSON.stringify(nodes));
     for (let i = 0; i < nodes.length; i++) {
         initNode(nodes[i]);
@@ -856,7 +856,7 @@ function main() {
 
     //loadExistingAccessories(() => {
         const options = {
-            device: 'ioBroker',
+            device: 'ioBroker', // name needs to be unique per Gateway, add host and instance once someone has issues with it
             reconnect:  true,
             reconnectInterval: 5000,
             maxRetries: Infinity
@@ -864,7 +864,7 @@ function main() {
         adapter.log.info('Init homee ' + adapter.config.host + ' for user ' + adapter.config.user);
         homee = new Homee(adapter.config.host, adapter.config.user, adapter.config.password, options);
 
-        mapper = require('./lib/mapper')(homee.enums);		
+        mapper = require('./lib/mapper')(homee.enums);
 
 
         homee.on('connected', () => {
@@ -889,9 +889,9 @@ function main() {
         // special events
         /*homee.on('user', (user) => {
             adapter.log.debug('USER: ' + JSON.stringify(user));
-        });*/		
-		
-		
+        });*/
+
+
         homee.on('attribute', (attribute) => {
             adapter.log.silly('ATTRIBUTE: ' + JSON.stringify(attribute.node_id) + '.' + JSON.stringify(attribute.id));
             setStateFromHomee(attribute.node_id, attribute.id, attribute);

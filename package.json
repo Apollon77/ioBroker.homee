@@ -24,7 +24,7 @@
   "description": "homee adapter for ioBroker",
   "devDependencies": {
     "@alcalzone/release-script": "^1.8.3",
-    "chai": "^4.2.0",
+    "chai": "^4.3.4",
     "gulp": "^4.0.2",
     "mocha": "^8.3.2",
     "request": "^2.88.2"

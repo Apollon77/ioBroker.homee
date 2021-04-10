@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "homee",
-        "version": "1.1.0",
+        "version": "1.1.1",
         "news": {
+            "1.1.1": {
+                "en": "Update to homee 2.32",
+                "de": "Update auf homee 2.32",
+                "ru": "Обновление до Homee 2.32",
+                "pt": "Atualize para homee 2.32",
+                "nl": "Update naar homee 2.32",
+                "fr": "Mise à jour vers homee 2.32",
+                "it": "Aggiornamento a homee 2.32",
+                "es": "Actualización a homee 2.32",
+                "pl": "Zaktualizuj do wersji homee 2.32",
+                "zh-cn": "更新到homee 2.32"
+            },
             "1.1.0": {
                 "en": "Update to homee 2.30",
                 "de": "Update auf homee 2.30",

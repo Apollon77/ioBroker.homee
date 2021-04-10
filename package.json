@@ -15,15 +15,16 @@
     }
   ],
   "dependencies": {
-    "homee-api": "^0.17.0",
+    "homee-api": "^0.20.0",
     "@iobroker/adapter-core": "^2.4.0",
-    "@sentry/node": "^5.27.6",
-    "@sentry/integrations": "^5.27.6",
+    "@sentry/node": "^6.2.5",
+    "@sentry/integrations": "^6.2.5",
     "source-map-support": "^0.5.19"
   },
   "description": "homee adapter for ioBroker",
   "devDependencies": {
     "@alcalzone/release-script": "^1.8.3",
+    "axios": "^0.21.1",
     "chai": "^4.3.4",
     "gulp": "^4.0.2",
     "mocha": "^8.3.2",

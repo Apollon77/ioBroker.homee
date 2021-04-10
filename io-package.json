@@ -108,7 +108,8 @@
                 "fr": "correction automatique du rôle et ajout d'un état de jeu pour les homégrammes",
                 "it": "corretta determinazione automatica del ruolo e stato di gioco aggiunto per gli homeegram",
                 "es": "determinación automática de roles corregida y estado de juego agregado para homeegramas",
-                "pl": "poprawiono automatyczne ustalanie roli i dodano stan odtwarzania dla homeegramów"
+                "pl": "poprawiono automatyczne ustalanie roli i dodano stan odtwarzania dla homeegramów",
+                "zh-cn": "更正了自动确定角色并增加了家庭图的播放状态"
             },
             "0.3.1": {
                 "en": "handling for RGB units, allow enabling/disabling of homeegramms",
@@ -119,7 +120,8 @@
                 "fr": "manipulation pour les unités RVB, permettre l'activation / désactivation des homeegramms",
                 "it": "gestione per unità RGB, consentire l'abilitazione / disabilitazione di homeegramms",
                 "es": "manejo de unidades RGB, permitir / deshabilitar homeegramms",
-                "pl": "obsługa jednostek RGB, umożliwia włączanie / wyłączanie homeegramów"
+                "pl": "obsługa jednostek RGB, umożliwia włączanie / wyłączanie homeegramów",
+                "zh-cn": "处理RGB单位，允许启用/禁用家庭图"
             },
             "0.2.0": {
                 "en": "Fix History logic and add Homeegram support",
@@ -130,7 +132,8 @@
                 "fr": "Correction de la logique de l'historique et ajout du support de Homeegram",
                 "it": "Correggi la logica della cronologia e aggiungi il supporto di Homeegram",
                 "es": "Arregle la lógica del historial y agregue el soporte de Homeegram",
-                "pl": "Napraw logikę historii i dodaj obsługę Homeegram"
+                "pl": "Napraw logikę historii i dodaj obsługę Homeegram",
+                "zh-cn": "修复历史记录逻辑并添加Homeegram支持"
             }
         },
         "title": "homee",
@@ -142,7 +145,9 @@
             "nl": "homee",
             "fr": "homee",
             "it": "homee",
-            "es": "homee"
+            "es": "homee",
+            "pl": "homee",
+            "zh-cn": "荷姆"
         },
         "desc": {
             "en": "support homee devices",
@@ -153,7 +158,8 @@
             "fr": "soutenir les appareils homee",
             "it": "supporta i dispositivi homee",
             "es": "soportar dispositivos homee",
-            "pl": "obsługuje urządzenia homee"
+            "pl": "obsługuje urządzenia homee",
+            "zh-cn": "支持家庭设备"
         },
         "authors": [
             "Apollon77 <ingo@fischer-ka.de>"

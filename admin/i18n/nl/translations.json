@@ -1,5 +1,5 @@
 {
-  "Host": "homee-ID / hostnaam / IP",
-  "Password": "Wachtwoord",
-  "User": "Gebruikersnaam"
+    "Host": "homee-ID / hostnaam / IP",
+    "Password": "Wachtwoord",
+    "User": "Gebruikersnaam"
 }

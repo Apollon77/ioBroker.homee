@@ -1,7 +1,6 @@
 ![Logo](admin/homee.png)
 # ioBroker homee Adapter
 ![Number of Installations](http://iobroker.live/badges/homee-installed.svg) ![Number of Installations](http://iobroker.live/badges/homee-stable.svg) 
-[![Greenkeeper badge](https://badges.greenkeeper.io/Apollon77/ioBroker.homee.svg)](https://greenkeeper.io/)
 
 **This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 

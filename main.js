@@ -7,7 +7,7 @@
 
 // you have to require the utils module and call adapter function
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils
-const Aggregate  = require(__dirname + '/lib/aggregate.js');
+const Aggregate = require('./lib/aggregate.js');
 
 const Homee = require('homee-api');
 let homee;

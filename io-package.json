@@ -185,6 +185,10 @@
         "subscribe": "messagebox",
         "supportCustoms": true,
         "preserveSettings": "custom",
+        "adminUI": {
+            "custom": "json",
+            "config": "materialize"
+        },
         "enabled": true,
         "getHistory": true,
         "extIcon": "https://raw.githubusercontent.com/Apollon77/ioBroker.homee/master/admin/homee.png",

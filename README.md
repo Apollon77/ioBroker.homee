@@ -1,7 +1,13 @@
 ![Logo](admin/homee.png)
 # ioBroker homee Adapter
 
-![Number of Installations](http://iobroker.live/badges/homee-installed.svg) ![Number of Installations](http://iobroker.live/badges/homee-stable.svg) 
+![Number of Installations](http://iobroker.live/badges/homee-installed.svg)
+![Number of Installations](http://iobroker.live/badges/homee-stable.svg)
+[![NPM version](http://img.shields.io/npm/v/iobroker.homee.svg)](https://www.npmjs.com/package/iobroker.homee)
+
+![Test and Release](https://github.com/Apollon77/iobroker.homee/workflows/Test%20and%20Release/badge.svg)
+[![Translation status](https://weblate.iobroker.net/widgets/adapters/-/homee/svg-badge.svg)](https://weblate.iobroker.net/engage/adapters/?utm_source=widget)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.homee.svg)](https://www.npmjs.com/package/iobroker.homee)
 
 **This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 

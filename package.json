@@ -15,7 +15,7 @@
     }
   ],
   "dependencies": {
-    "homee-api": "^0.21.1",
+    "homee-api": "^0.22.0",
     "@iobroker/adapter-core": "^2.5.0",
     "@sentry/node": "^6.4.1",
     "@sentry/integrations": "^6.4.1",

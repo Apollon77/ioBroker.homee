@@ -31,6 +31,7 @@ Best is to set the adapter to Debug log mode (Instances -> Expert mode -> Column
 ## Changelog
 ### __WORK IN PROGRESS__
 * (bluefox) Added admin5 support
+* (Apollon77) Update to homee 2.33
 
 ### 1.1.1 (2021-04-10)
 * (Apollon77) Update to homee 2.32

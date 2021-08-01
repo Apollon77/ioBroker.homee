@@ -201,6 +201,7 @@
         "compact": true,
         "connectionType": "local",
         "dataSource": "push",
+        "tier": 2,
         "dependencies": [
             {
                 "js-controller": ">=2.0.0"

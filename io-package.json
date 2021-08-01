@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "homee",
-        "version": "1.1.1",
+        "version": "1.2.0",
         "news": {
+            "1.2.0": {
+                "en": "Added admin5 support\nUpdate to homee 2.33",
+                "de": "admin5-Unterstützung hinzugefügt\nUpdate auf homee 2.33",
+                "ru": "Добавлена поддержка admin5\nОбновление до Homee 2.33",
+                "pt": "Adicionado suporte admin5\nAtualização para homee 2.33",
+                "nl": "Ondersteuning voor admin5 toegevoegd\nUpdate naar home 2.33",
+                "fr": "Ajout du support admin5\nMise à jour vers homee 2.33",
+                "it": "Aggiunto supporto admin5\nAggiorna a casa 2.33",
+                "es": "Añadido soporte admin5\nActualización a homee 2.33",
+                "pl": "Dodano wsparcie administratora\nAktualizacja do domu 2.33",
+                "zh-cn": "添加了 admin5 支持\n更新到 homee 2.33"
+            },
             "1.1.1": {
                 "en": "Update to homee 2.32",
                 "de": "Update auf homee 2.32",

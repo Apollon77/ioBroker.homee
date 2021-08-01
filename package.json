@@ -15,10 +15,10 @@
     }
   ],
   "dependencies": {
-    "homee-api": "^0.20.0",
-    "@iobroker/adapter-core": "^2.4.0",
-    "@sentry/node": "^6.3.5",
-    "@sentry/integrations": "^6.3.5",
+    "homee-api": "^0.21.1",
+    "@iobroker/adapter-core": "^2.5.0",
+    "@sentry/node": "^6.4.1",
+    "@sentry/integrations": "^6.4.1",
     "source-map-support": "^0.5.19"
   },
   "description": "homee adapter for ioBroker",

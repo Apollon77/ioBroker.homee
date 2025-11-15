@@ -188,7 +188,10 @@
         "authors": [
             "Apollon77 <ingo@fischer-ka.de>"
         ],
-        "license": "MIT",
+        "licenseInformation": {
+            "type": "free",
+            "license": "MIT"
+        },
         "platform": "Javascript/Node.js",
         "mode": "daemon",
         "icon": "homee.png",

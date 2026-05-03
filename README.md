@@ -85,6 +85,8 @@ Best is to set the adapter to Debug log mode (Instances -> Expert mode -> Column
 ### 0.1.1 (2018.07.04)
 * (Apollon77) initial version
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 The MIT License (MIT)
 

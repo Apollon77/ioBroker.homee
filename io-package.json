@@ -1,273 +1,273 @@
 {
-    "common": {
-        "name": "homee",
-        "version": "1.2.0",
-        "news": {
-            "1.2.0": {
-                "en": "Added admin5 support\nUpdate to homee 2.33",
-                "de": "admin5-Unterstützung hinzugefügt\nUpdate auf homee 2.33",
-                "ru": "Добавлена поддержка admin5\nОбновление до Homee 2.33",
-                "pt": "Adicionado suporte admin5\nAtualização para homee 2.33",
-                "nl": "Ondersteuning voor admin5 toegevoegd\nUpdate naar home 2.33",
-                "fr": "Ajout du support admin5\nMise à jour vers homee 2.33",
-                "it": "Aggiunto supporto admin5\nAggiorna a casa 2.33",
-                "es": "Añadido soporte admin5\nActualización a homee 2.33",
-                "pl": "Dodano wsparcie administratora\nAktualizacja do domu 2.33",
-                "zh-cn": "添加了 admin5 支持\n更新到 homee 2.33"
-            },
-            "1.1.1": {
-                "en": "Update to homee 2.32",
-                "de": "Update auf homee 2.32",
-                "ru": "Обновление до Homee 2.32",
-                "pt": "Atualize para homee 2.32",
-                "nl": "Update naar homee 2.32",
-                "fr": "Mise à jour vers homee 2.32",
-                "it": "Aggiornamento a homee 2.32",
-                "es": "Actualización a homee 2.32",
-                "pl": "Zaktualizuj do wersji homee 2.32",
-                "zh-cn": "更新到homee 2.32"
-            },
-            "1.1.0": {
-                "en": "Update to homee 2.30",
-                "de": "Update auf homee 2.30",
-                "ru": "Обновление до Homee 2.30",
-                "pt": "Atualizar para homee 2.30",
-                "nl": "Update naar homee 2.30",
-                "fr": "Mise à jour vers homee 2.30",
-                "it": "Aggiornamento a homee 2.30",
-                "es": "Actualización a homee 2.30",
-                "pl": "Zaktualizuj do wersji homee 2.30",
-                "zh-cn": "更新到homee 2.30"
-            },
-            "1.0.7": {
-                "en": "Fix Admin finally",
-                "de": "Fix Admin endlich",
-                "ru": "Исправить Admin наконец",
-                "pt": "Corrigir Admin finalmente",
-                "nl": "Fix Admin eindelijk",
-                "fr": "Fix Admin enfin",
-                "it": "Risolto il problema con Admin",
-                "es": "Fix Admin finalmente",
-                "pl": "Napraw administratora w końcu",
-                "zh-cn": "最终修复管理员"
-            },
-            "1.0.6": {
-                "en": "Fix Admin",
-                "de": "Fix Admin",
-                "ru": "Исправить админ",
-                "pt": "Fix Admin",
-                "nl": "Beheerder repareren",
-                "fr": "Fix Admin",
-                "it": "Fix Admin",
-                "es": "Fix Admin",
-                "pl": "Napraw administratora",
-                "zh-cn": "修复管理员"
-            },
-            "1.0.5": {
-                "en": "optimizations and fixes",
-                "de": "Optimierungen und Korrekturen",
-                "ru": "оптимизации и исправления",
-                "pt": "otimizações e correções",
-                "nl": "optimalisaties en oplossingen",
-                "fr": "optimisations et correctifs",
-                "it": "ottimizzazioni e correzioni",
-                "es": "optimizaciones y arreglos",
-                "pl": "optymalizacje i poprawki",
-                "zh-cn": "优化和修复"
-            },
-            "1.0.4": {
-                "en": "optimizations and fixes",
-                "de": "Optimierungen und Korrekturen",
-                "ru": "оптимизации и исправления",
-                "pt": "otimizações e correções",
-                "nl": "optimalisaties en oplossingen",
-                "fr": "optimisations et correctifs",
-                "it": "ottimizzazioni e correzioni",
-                "es": "optimizaciones y arreglos",
-                "pl": "optymalizacje i poprawki",
-                "zh-cn": "优化和修复"
-            },
-            "1.0.2": {
-                "en": "optimizations and fixes",
-                "de": "Optimierungen und Korrekturen",
-                "ru": "оптимизации и исправления",
-                "pt": "otimizações e correções",
-                "nl": "optimalisaties en oplossingen",
-                "fr": "optimisations et correctifs",
-                "it": "ottimizzazioni e correzioni",
-                "es": "optimizaciones y arreglos",
-                "pl": "optymalizacje i poprawki",
-                "zh-cn": "优化和修复"
-            },
-            "1.0.1": {
-                "en": "optimizations and fixes",
-                "de": "Optimierungen und Korrekturen",
-                "ru": "оптимизации и исправления",
-                "pt": "otimizações e correções",
-                "nl": "optimalisaties en oplossingen",
-                "fr": "optimisations et correctifs",
-                "it": "ottimizzazioni e correzioni",
-                "es": "optimizaciones y arreglos",
-                "pl": "optymalizacje i poprawki",
-                "zh-cn": "优化和修复"
-            },
-            "1.0.0": {
-                "en": "update homee api, add sentry for error tracking",
-                "de": "Aktualisiere die Homee-API und füge einen Wachposten für die Fehlerverfolgung hinzu",
-                "ru": "обновить homee api, добавить часового для отслеживания ошибок",
-                "pt": "atualizar homee api, adicionar sentinela para rastreamento de erros",
-                "nl": "homee api bijwerken, wachtpost toevoegen voor foutopsporing",
-                "fr": "mettre à jour l'api homee, ajouter une sentinelle pour le suivi des erreurs",
-                "it": "aggiorna api homee, aggiungi sentinella per il rilevamento degli errori",
-                "es": "actualizar la API de inicio, agregar centinela para el seguimiento de errores",
-                "pl": "zaktualizuj homee api, dodaj wartownik do śledzenia błędów",
-                "zh-cn": "更新homee api，添加哨兵以进行错误跟踪"
-            },
-            "0.3.2": {
-                "en": "corrected automatic role determination and added playing state for homeegrams",
-                "de": "Die automatische Rollenermittlung wurde korrigiert und der Spielstatus für Homögramme wurde hinzugefügt",
-                "ru": "исправленное автоматическое определение роли и добавленное игровое состояние для домашних",
-                "pt": "determinação automática de função corrigida e estado de reprodução adicionado para homeegramas",
-                "nl": "gecorrigeerde automatische rolbepaling en toegevoegde afspeelstatus voor thuisegrammen",
-                "fr": "correction automatique du rôle et ajout d'un état de jeu pour les homégrammes",
-                "it": "corretta determinazione automatica del ruolo e stato di gioco aggiunto per gli homeegram",
-                "es": "determinación automática de roles corregida y estado de juego agregado para homeegramas",
-                "pl": "poprawiono automatyczne ustalanie roli i dodano stan odtwarzania dla homeegramów",
-                "zh-cn": "更正了自动确定角色并增加了家庭图的播放状态"
-            },
-            "0.3.1": {
-                "en": "handling for RGB units, allow enabling/disabling of homeegramms",
-                "de": "Handhabung für RGB-Einheiten, ermöglichen aktivieren / deaktivieren von Homegramms",
-                "ru": "обработка для блоков RGB, позволяет включать / отключать домашние программы",
-                "pt": "manipulação de unidades RGB, permitir ativação / desativação de homeegramas",
-                "nl": "afhandeling voor RGB-eenheden, inschakelen / uitschakelen van huisgrammen",
-                "fr": "manipulation pour les unités RVB, permettre l'activation / désactivation des homeegramms",
-                "it": "gestione per unità RGB, consentire l'abilitazione / disabilitazione di homeegramms",
-                "es": "manejo de unidades RGB, permitir / deshabilitar homeegramms",
-                "pl": "obsługa jednostek RGB, umożliwia włączanie / wyłączanie homeegramów",
-                "zh-cn": "处理RGB单位，允许启用/禁用家庭图"
-            },
-            "0.2.0": {
-                "en": "Fix History logic and add Homeegram support",
-                "de": "Repariere die History-Logik und füge Homeegram-Unterstützung hinzu",
-                "ru": "Исправить логику истории и добавить поддержку Homeegram",
-                "pt": "Corrigir a lógica do histórico e adicionar suporte ao Homeegram",
-                "nl": "Herstel de logica van de geschiedenis en voeg Homeegram-ondersteuning toe",
-                "fr": "Correction de la logique de l'historique et ajout du support de Homeegram",
-                "it": "Correggi la logica della cronologia e aggiungi il supporto di Homeegram",
-                "es": "Arregle la lógica del historial y agregue el soporte de Homeegram",
-                "pl": "Napraw logikę historii i dodaj obsługę Homeegram",
-                "zh-cn": "修复历史记录逻辑并添加Homeegram支持"
-            }
-        },
-        "title": "homee",
-        "titleLang": {
-            "en": "homee",
-            "de": "homee",
-            "ru": "homee",
-            "pt": "homee",
-            "nl": "homee",
-            "fr": "homee",
-            "it": "homee",
-            "es": "homee",
-            "pl": "homee",
-            "zh-cn": "荷姆"
-        },
-        "desc": {
-            "en": "support homee devices",
-            "de": "Unterstützung von homee-Geräten",
-            "ru": "поддержка устройств homee",
-            "pt": "suporte a dispositivos homee",
-            "nl": "ondersteuning van homee-apparaten",
-            "fr": "soutenir les appareils homee",
-            "it": "supporta i dispositivi homee",
-            "es": "soportar dispositivos homee",
-            "pl": "obsługuje urządzenia homee",
-            "zh-cn": "支持家庭设备"
-        },
-        "authors": [
-            "Apollon77 <ingo@fischer-ka.de>"
-        ],
-        "licenseInformation": {
-            "type": "free",
-            "license": "MIT"
-        },
-        "platform": "Javascript/Node.js",
-        "mode": "daemon",
-        "icon": "homee.png",
-        "materialize": true,
-        "messagebox": true,
-        "subscribe": "messagebox",
-        "supportCustoms": true,
-        "preserveSettings": "custom",
-        "adminUI": {
-            "custom": "json",
-            "config": "materialize"
-        },
-        "enabled": true,
-        "getHistory": true,
-        "extIcon": "https://raw.githubusercontent.com/Apollon77/ioBroker.homee/master/admin/homee.png",
-        "keywords": [
-            "homee"
-        ],
-        "readme": "https://github.com/Apollon77/ioBroker.homee/blob/master/README.md",
-        "loglevel": "info",
-        "type": "iot-systems",
-        "compact": true,
-        "connectionType": "local",
-        "dataSource": "push",
-        "tier": 2,
-        "dependencies": [
-            {
-                "js-controller": ">=2.0.0"
-            }
-        ],
-        "plugins": {
-            "sentry": {
-                "dsn": "https://2ca4d806cbfe4efebf647a2279339e32@sentry.iobroker.net/7",
-                "pathWhitelist": [
-                    "@apollon",
-                    "homee"
-                ],
-                "errorBlacklist": [
-                    "SyntaxError"
-                ]
-            }
-        }
+  "common": {
+    "name": "homee",
+    "version": "1.2.0",
+    "news": {
+      "1.2.0": {
+        "en": "Added admin5 support\nUpdate to homee 2.33",
+        "de": "admin5-Unterstützung hinzugefügt\nUpdate auf homee 2.33",
+        "ru": "Добавлена поддержка admin5\nОбновление до Homee 2.33",
+        "pt": "Adicionado suporte admin5\nAtualização para homee 2.33",
+        "nl": "Ondersteuning voor admin5 toegevoegd\nUpdate naar home 2.33",
+        "fr": "Ajout du support admin5\nMise à jour vers homee 2.33",
+        "it": "Aggiunto supporto admin5\nAggiorna a casa 2.33",
+        "es": "Añadido soporte admin5\nActualización a homee 2.33",
+        "pl": "Dodano wsparcie administratora\nAktualizacja do domu 2.33",
+        "zh-cn": "添加了 admin5 支持\n更新到 homee 2.33"
+      },
+      "1.1.1": {
+        "en": "Update to homee 2.32",
+        "de": "Update auf homee 2.32",
+        "ru": "Обновление до Homee 2.32",
+        "pt": "Atualize para homee 2.32",
+        "nl": "Update naar homee 2.32",
+        "fr": "Mise à jour vers homee 2.32",
+        "it": "Aggiornamento a homee 2.32",
+        "es": "Actualización a homee 2.32",
+        "pl": "Zaktualizuj do wersji homee 2.32",
+        "zh-cn": "更新到homee 2.32"
+      },
+      "1.1.0": {
+        "en": "Update to homee 2.30",
+        "de": "Update auf homee 2.30",
+        "ru": "Обновление до Homee 2.30",
+        "pt": "Atualizar para homee 2.30",
+        "nl": "Update naar homee 2.30",
+        "fr": "Mise à jour vers homee 2.30",
+        "it": "Aggiornamento a homee 2.30",
+        "es": "Actualización a homee 2.30",
+        "pl": "Zaktualizuj do wersji homee 2.30",
+        "zh-cn": "更新到homee 2.30"
+      },
+      "1.0.7": {
+        "en": "Fix Admin finally",
+        "de": "Fix Admin endlich",
+        "ru": "Исправить Admin наконец",
+        "pt": "Corrigir Admin finalmente",
+        "nl": "Fix Admin eindelijk",
+        "fr": "Fix Admin enfin",
+        "it": "Risolto il problema con Admin",
+        "es": "Fix Admin finalmente",
+        "pl": "Napraw administratora w końcu",
+        "zh-cn": "最终修复管理员"
+      },
+      "1.0.6": {
+        "en": "Fix Admin",
+        "de": "Fix Admin",
+        "ru": "Исправить админ",
+        "pt": "Fix Admin",
+        "nl": "Beheerder repareren",
+        "fr": "Fix Admin",
+        "it": "Fix Admin",
+        "es": "Fix Admin",
+        "pl": "Napraw administratora",
+        "zh-cn": "修复管理员"
+      },
+      "1.0.5": {
+        "en": "optimizations and fixes",
+        "de": "Optimierungen und Korrekturen",
+        "ru": "оптимизации и исправления",
+        "pt": "otimizações e correções",
+        "nl": "optimalisaties en oplossingen",
+        "fr": "optimisations et correctifs",
+        "it": "ottimizzazioni e correzioni",
+        "es": "optimizaciones y arreglos",
+        "pl": "optymalizacje i poprawki",
+        "zh-cn": "优化和修复"
+      },
+      "1.0.4": {
+        "en": "optimizations and fixes",
+        "de": "Optimierungen und Korrekturen",
+        "ru": "оптимизации и исправления",
+        "pt": "otimizações e correções",
+        "nl": "optimalisaties en oplossingen",
+        "fr": "optimisations et correctifs",
+        "it": "ottimizzazioni e correzioni",
+        "es": "optimizaciones y arreglos",
+        "pl": "optymalizacje i poprawki",
+        "zh-cn": "优化和修复"
+      },
+      "1.0.2": {
+        "en": "optimizations and fixes",
+        "de": "Optimierungen und Korrekturen",
+        "ru": "оптимизации и исправления",
+        "pt": "otimizações e correções",
+        "nl": "optimalisaties en oplossingen",
+        "fr": "optimisations et correctifs",
+        "it": "ottimizzazioni e correzioni",
+        "es": "optimizaciones y arreglos",
+        "pl": "optymalizacje i poprawki",
+        "zh-cn": "优化和修复"
+      },
+      "1.0.1": {
+        "en": "optimizations and fixes",
+        "de": "Optimierungen und Korrekturen",
+        "ru": "оптимизации и исправления",
+        "pt": "otimizações e correções",
+        "nl": "optimalisaties en oplossingen",
+        "fr": "optimisations et correctifs",
+        "it": "ottimizzazioni e correzioni",
+        "es": "optimizaciones y arreglos",
+        "pl": "optymalizacje i poprawki",
+        "zh-cn": "优化和修复"
+      },
+      "1.0.0": {
+        "en": "update homee api, add sentry for error tracking",
+        "de": "Aktualisiere die Homee-API und füge einen Wachposten für die Fehlerverfolgung hinzu",
+        "ru": "обновить homee api, добавить часового для отслеживания ошибок",
+        "pt": "atualizar homee api, adicionar sentinela para rastreamento de erros",
+        "nl": "homee api bijwerken, wachtpost toevoegen voor foutopsporing",
+        "fr": "mettre à jour l'api homee, ajouter une sentinelle pour le suivi des erreurs",
+        "it": "aggiorna api homee, aggiungi sentinella per il rilevamento degli errori",
+        "es": "actualizar la API de inicio, agregar centinela para el seguimiento de errores",
+        "pl": "zaktualizuj homee api, dodaj wartownik do śledzenia błędów",
+        "zh-cn": "更新homee api，添加哨兵以进行错误跟踪"
+      },
+      "0.3.2": {
+        "en": "corrected automatic role determination and added playing state for homeegrams",
+        "de": "Die automatische Rollenermittlung wurde korrigiert und der Spielstatus für Homögramme wurde hinzugefügt",
+        "ru": "исправленное автоматическое определение роли и добавленное игровое состояние для домашних",
+        "pt": "determinação automática de função corrigida e estado de reprodução adicionado para homeegramas",
+        "nl": "gecorrigeerde automatische rolbepaling en toegevoegde afspeelstatus voor thuisegrammen",
+        "fr": "correction automatique du rôle et ajout d'un état de jeu pour les homégrammes",
+        "it": "corretta determinazione automatica del ruolo e stato di gioco aggiunto per gli homeegram",
+        "es": "determinación automática de roles corregida y estado de juego agregado para homeegramas",
+        "pl": "poprawiono automatyczne ustalanie roli i dodano stan odtwarzania dla homeegramów",
+        "zh-cn": "更正了自动确定角色并增加了家庭图的播放状态"
+      },
+      "0.3.1": {
+        "en": "handling for RGB units, allow enabling/disabling of homeegramms",
+        "de": "Handhabung für RGB-Einheiten, ermöglichen aktivieren / deaktivieren von Homegramms",
+        "ru": "обработка для блоков RGB, позволяет включать / отключать домашние программы",
+        "pt": "manipulação de unidades RGB, permitir ativação / desativação de homeegramas",
+        "nl": "afhandeling voor RGB-eenheden, inschakelen / uitschakelen van huisgrammen",
+        "fr": "manipulation pour les unités RVB, permettre l'activation / désactivation des homeegramms",
+        "it": "gestione per unità RGB, consentire l'abilitazione / disabilitazione di homeegramms",
+        "es": "manejo de unidades RGB, permitir / deshabilitar homeegramms",
+        "pl": "obsługa jednostek RGB, umożliwia włączanie / wyłączanie homeegramów",
+        "zh-cn": "处理RGB单位，允许启用/禁用家庭图"
+      },
+      "0.2.0": {
+        "en": "Fix History logic and add Homeegram support",
+        "de": "Repariere die History-Logik und füge Homeegram-Unterstützung hinzu",
+        "ru": "Исправить логику истории и добавить поддержку Homeegram",
+        "pt": "Corrigir a lógica do histórico e adicionar suporte ao Homeegram",
+        "nl": "Herstel de logica van de geschiedenis en voeg Homeegram-ondersteuning toe",
+        "fr": "Correction de la logique de l'historique et ajout du support de Homeegram",
+        "it": "Correggi la logica della cronologia e aggiungi il supporto di Homeegram",
+        "es": "Arregle la lógica del historial y agregue el soporte de Homeegram",
+        "pl": "Napraw logikę historii i dodaj obsługę Homeegram",
+        "zh-cn": "修复历史记录逻辑并添加Homeegram支持"
+      }
     },
-    "encryptedNative": [
-        "password"
-    ],
-    "protectedNative": [
-        "password"
-    ],
-    "native": {
-        "host": "",
-        "user": "",
-        "password": ""
+    "title": "homee",
+    "titleLang": {
+      "en": "homee",
+      "de": "homee",
+      "ru": "homee",
+      "pt": "homee",
+      "nl": "homee",
+      "fr": "homee",
+      "it": "homee",
+      "es": "homee",
+      "pl": "homee",
+      "zh-cn": "荷姆"
     },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "If connected to homee",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        }
-    ]
+    "desc": {
+      "en": "support homee devices",
+      "de": "Unterstützung von homee-Geräten",
+      "ru": "поддержка устройств homee",
+      "pt": "suporte a dispositivos homee",
+      "nl": "ondersteuning van homee-apparaten",
+      "fr": "soutenir les appareils homee",
+      "it": "supporta i dispositivi homee",
+      "es": "soportar dispositivos homee",
+      "pl": "obsługuje urządzenia homee",
+      "zh-cn": "支持家庭设备"
+    },
+    "authors": [
+      "Apollon77 <ingo@fischer-ka.de>"
+    ],
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
+    },
+    "platform": "Javascript/Node.js",
+    "mode": "daemon",
+    "icon": "homee.png",
+    "materialize": true,
+    "messagebox": true,
+    "subscribe": "messagebox",
+    "supportCustoms": true,
+    "preserveSettings": "custom",
+    "adminUI": {
+      "custom": "json",
+      "config": "materialize"
+    },
+    "enabled": true,
+    "getHistory": true,
+    "extIcon": "https://raw.githubusercontent.com/Apollon77/ioBroker.homee/master/admin/homee.png",
+    "keywords": [
+      "homee"
+    ],
+    "readme": "https://github.com/Apollon77/ioBroker.homee/blob/master/README.md",
+    "loglevel": "info",
+    "type": "iot-systems",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "push",
+    "tier": 2,
+    "dependencies": [
+      {
+        "js-controller": ">=6.0.11"
+      }
+    ],
+    "plugins": {
+      "sentry": {
+        "dsn": "https://2ca4d806cbfe4efebf647a2279339e32@sentry.iobroker.net/7",
+        "pathWhitelist": [
+          "@apollon",
+          "homee"
+        ],
+        "errorBlacklist": [
+          "SyntaxError"
+        ]
+      }
+    }
+  },
+  "encryptedNative": [
+    "password"
+  ],
+  "protectedNative": [
+    "password"
+  ],
+  "native": {
+    "host": "",
+    "user": "",
+    "password": ""
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "If connected to homee",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
 }

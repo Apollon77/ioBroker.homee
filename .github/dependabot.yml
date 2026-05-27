@@ -10,3 +10,10 @@ updates:
       cronjob: "44 2 16 * *"
     open-pull-requests-limit: 20
     versioning-strategy: "increase"
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'cron'
+      timezone: 'Europe/Berlin'
+      cronjob: '44 2 16 * *'
+    open-pull-requests-limit: 15

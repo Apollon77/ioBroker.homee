@@ -35,6 +35,13 @@ Please use GitHub issues for this.
 Best is to set the adapter to Debug log mode (Instances -> Expert mode -> Column Log level). Then please get the logfile from disk (subdirectory "log" in ioBroker installation directory and not from Admin because Admin cuts the lines). If you do not like providing it in GitHub issue you can also send it to me via email (iobroker@fischer-ka.de). Please add a reference to the relevant GitHub issue AND also describe what I see in the log at which time.
 
 ## Changelog
+<!--
+    Placeholder for the next version (at the beginning of the line):
+    ### **WORK IN PROGRESS**
+-->
+### **WORK IN PROGRESS**
+* (DutchmanNL) Values outside the attribute's min/max no longer cause a warning on every update: unsigned 16 bit readings that homee sends as negative numbers (e.g. brightness above 32767 lx) are converted back, any other out of range value (e.g. UV -1 without a reading) is set to null
+
 ### 1.2.0 (2021-08-01)
 * (bluefox) Added admin5 support
 * (Apollon77) Update to homee 2.33

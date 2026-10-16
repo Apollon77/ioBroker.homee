@@ -8,6 +8,7 @@
 // you have to require the utils module and call adapter function
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils
 const Aggregate = require('./lib/aggregate.js');
+const {normalizeNumberValue} = require('./lib/tools.js');
 
 const Homee = require('homee-api');
 let homee;
@@ -348,7 +349,7 @@ function updateState(node_id, node_name, attribute, node_history) {
     const nodeId = parseInt(node_id.split('-')[1], 10);
     const id = nodeId + '.' + attribute.id;
     adapter.log.debug('store lookup ' + id + ' for ' + realId);
-    attributeMap[id] = {type: common.type, unit: common.unit, role: common.role, id: realId};
+    attributeMap[id] = {type: common.type, unit: common.unit, role: common.role, id: realId, min: common.min, max: common.max};
 
     let value = attribute.current_value;
     /*if (common.type === 'boolean') {
@@ -483,7 +484,12 @@ function setStateFromHomee(node_id, attribute_id, attribute, initial) {
         }
     }
     else if (attributeMap[id].type === 'number') {
-        if (attribute.unit === 'unixtimestamp') {
+        const normalized = normalizeNumberValue(value, attributeMap[id].min, attributeMap[id].max);
+        if (normalized.reason) {
+            adapter.log.debug('Value ' + value + ' for ' + attributeMap[id].id + ' is outside ' + attributeMap[id].min + '..' + attributeMap[id].max + (normalized.reason === 'uint16' ? ', converted to ' + normalized.value : ', set to null'));
+        }
+        value = normalized.value;
+        if (value !== null && attribute.unit === 'unixtimestamp') {
             value *= 1000;
         }
     }
